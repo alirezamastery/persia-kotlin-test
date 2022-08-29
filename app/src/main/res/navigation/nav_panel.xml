@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/incomeListFragment"
-        android:name="com.persia.test.ui.panel.accounting.IncomeListFragment"
+        android:name="com.persia.test.ui.panel.accounting.income.IncomeListFragment"
         android:label="fragment_income_list"
         tools:layout="@layout/fragment_income_list" />
 </navigation>
