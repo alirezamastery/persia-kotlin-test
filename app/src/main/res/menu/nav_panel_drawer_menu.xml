@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Main Section">
+    <item android:title="@string/product_section">
         <menu>
             <group>
                 <item
                     android:id="@+id/profileFragment"
-                    android:title="@string/profile"
-                    android:icon="@drawable/ic_baseline_category_24"
-                    />
+                    android:icon="@drawable/ic_baseline_person_24"
+                    android:title="@string/profile" />
+                <item
+                    android:id="@+id/actualProductListFragment"
+                    android:icon="@drawable/ic_baseline_view_stream_24"
+                    android:title="@string/actual_products" />
+                <item
+                    android:id="@+id/brandListFragment"
+                    android:icon="@drawable/ic_baseline_branding_watermark_24"
+                    android:title="@string/brands" />
+                <item
+                    android:id="@+id/productListFragment"
+                    android:icon="@drawable/ic_baseline_table_rows_24"
+                    android:title="@string/products" />
+                <item
+                    android:id="@+id/variantListFragment"
+                    android:icon="@drawable/ic_baseline_account_tree_24"
+                    android:title="@string/variants" />
             </group>
         </menu>
     </item>
 
-    <item android:title="Accounting">
+    <item android:title="@string/accounting_section">
         <menu>
             <group>
                 <item
                     android:id="@+id/incomeListFragment"
-                    android:title="Income"
-                    android:icon="@drawable/ic_connection_error"
-                    />
+                    android:icon="@drawable/ic_baseline_monetization_on_24"
+                    android:title="@string/incomes" />
+                <item
+                    android:id="@+id/costListFragment"
+                    android:icon="@drawable/ic_baseline_add_shopping_cart_24"
+                    android:title="@string/costs" />
             </group>
         </menu>
     </item>

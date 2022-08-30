@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Persia Test</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_title">Login to Account</string>
     <string name="btn_login">Login</string>
@@ -12,4 +11,12 @@
     <string name="login_failed">Login Failed</string>
     <string name="about_us">About Us</string>
     <string name="profile">Profile</string>
+    <string name="product_section">Products</string>
+    <string name="accounting_section">Accounting</string>
+    <string name="products">Products</string>
+    <string name="brands">Brands</string>
+    <string name="actual_products">Actual Products</string>
+    <string name="variants">Variants</string>
+    <string name="incomes">Incomes</string>
+    <string name="costs">Costs</string>
 </resources>

@@ -14,5 +14,84 @@
         android:id="@+id/incomeListFragment"
         android:name="com.persia.test.ui.panel.accounting.income.IncomeListFragment"
         android:label="fragment_income_list"
-        tools:layout="@layout/fragment_income_list" />
+        tools:layout="@layout/fragment_income_list" >
+        <action
+            android:id="@+id/action_incomeListFragment_to_incomeDetailFragment"
+            app:destination="@id/incomeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/actualProductListFragment"
+        android:name="com.persia.test.ui.panel.products.actualProduct.ActualProductListFragment"
+        android:label="fragment_actual_product_list"
+        tools:layout="@layout/fragment_actual_product_list" >
+        <action
+            android:id="@+id/action_actualProductListFragment_to_actualProductDetailFragment"
+            app:destination="@id/actualProductDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/actualProductDetailFragment"
+        android:name="com.persia.test.ui.panel.products.actualProduct.detail.ActualProductDetailFragment"
+        android:label="fragment_actual_product_detail"
+        tools:layout="@layout/fragment_actual_product_detail" />
+    <fragment
+        android:id="@+id/brandListFragment"
+        android:name="com.persia.test.ui.panel.products.brand.BrandListFragment"
+        android:label="fragment_brand_list"
+        tools:layout="@layout/fragment_brand_list" >
+        <action
+            android:id="@+id/action_brandListFragment_to_brandDetailFragment"
+            app:destination="@id/brandDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/brandDetailFragment"
+        android:name="com.persia.test.ui.panel.products.brand.detail.BrandDetailFragment"
+        android:label="fragment_brand_detail"
+        tools:layout="@layout/fragment_brand_detail" />
+    <fragment
+        android:id="@+id/incomeDetailFragment"
+        android:name="com.persia.test.ui.panel.accounting.income.detail.IncomeDetailFragment"
+        android:label="fragment_income_detail"
+        tools:layout="@layout/fragment_income_detail" />
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.persia.test.ui.panel.products.product.ProductListFragment"
+        android:label="fragment_product_list"
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/action_productListFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.persia.test.ui.panel.products.product.detail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/variantListFragment"
+        android:name="com.persia.test.ui.panel.products.variant.VariantListFragment"
+        android:label="fragment_variant_list"
+        tools:layout="@layout/fragment_variant_list" >
+        <action
+            android:id="@+id/action_variantListFragment_to_variantDetailFragment"
+            app:destination="@id/variantDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/variantDetailFragment"
+        android:name="com.persia.test.ui.panel.products.variant.detail.VariantDetailFragment"
+        android:label="fragment_variant_detail"
+        tools:layout="@layout/fragment_variant_detail" />
+    <fragment
+        android:id="@+id/costListFragment"
+        android:name="com.persia.test.ui.panel.accounting.cost.CostListFragment"
+        android:label="fragment_cost_list"
+        tools:layout="@layout/fragment_cost_list" >
+        <action
+            android:id="@+id/action_costListFragment_to_costDetailFragment"
+            app:destination="@id/costDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/costDetailFragment"
+        android:name="com.persia.test.ui.panel.accounting.cost.detail.CostDetailFragment"
+        android:label="fragment_cost_detail"
+        tools:layout="@layout/fragment_cost_detail" />
 </navigation>
