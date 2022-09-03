@@ -6,9 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.persia.test.R
+import com.persia.test.databinding.FragmentIncomeListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
+@AndroidEntryPoint
 class IncomeListFragment : Fragment() {
+
+    private val viewModel: IncomeListViewModel by viewModels()
+
+    private lateinit var epoxyController: IncomeListEpoxyController
+
+    private lateinit var _binding: FragmentIncomeListBinding
+    private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

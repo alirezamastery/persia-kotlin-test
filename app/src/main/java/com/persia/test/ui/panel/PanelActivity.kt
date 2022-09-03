@@ -13,7 +13,10 @@ import androidx.navigation.ui.NavigationUI
 import com.persia.test.R
 import com.persia.test.databinding.ActivityPanelBinding
 import com.persia.test.databinding.NavPanelViewHeaderBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class PanelActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPanelBinding

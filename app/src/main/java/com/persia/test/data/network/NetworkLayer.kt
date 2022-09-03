@@ -1,5 +1,6 @@
 package com.persia.test.data.network
 
+import android.os.Build
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -8,8 +9,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.persia.test.Constants
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import java.time.Duration
+import javax.inject.Singleton
 
-
+@Module
+@InstallIn(SingletonComponent::class)
 object NetworkLayer {
 
     private val httpClient = OkHttpClient.Builder()
@@ -34,4 +42,51 @@ object NetworkLayer {
     }
 
     val persiaAtlasApi = ApiClient(persiaAtlasService)
+
+
+    @Provides
+    @Singleton
+    fun providesMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(): OkHttpClient {
+        val timeoutDuration = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Duration.ofSeconds(15)
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        return OkHttpClient.Builder()
+            .connectTimeout(timeoutDuration)
+            .addInterceptor(AuthInterceptor())
+            .writeTimeout(timeoutDuration)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesRetrofit(httpClient: OkHttpClient, moshi: Moshi): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constants.SERVER_BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(httpClient)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesPersiaAtlasService(retrofit: Retrofit): PersiaAtlasService {
+        return retrofit.create(PersiaAtlasService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesPersiaAtlasApi(persiaAtlasService: PersiaAtlasService): ApiClient {
+        return ApiClient(persiaAtlasService)
+    }
 }

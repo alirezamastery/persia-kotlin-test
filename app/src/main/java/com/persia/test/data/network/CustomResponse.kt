@@ -43,4 +43,7 @@ data class CustomResponse<T>(
 
     val bodyNullable: T?
         get() = this.data?.body()
+
+    val code: Int
+        get() = this.data!!.code()
 }

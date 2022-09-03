@@ -7,19 +7,23 @@ import android.os.Bundle
 import com.persia.test.global.AppPreferences
 import com.persia.test.ui.auth.AuthActivity
 import com.persia.test.ui.panel.PanelActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         AppPreferences.setup(applicationContext)
+        AppPreferences.accessToken = "ttt"
         Timber.i("auth stat: ${AppPreferences.isLoggedIn}")
 
         setContentView(R.layout.activity_main)
 
-        if (AppPreferences.isLoggedIn != true)
+        if (AppPreferences.isLoggedIn == true)
             goToActivity(this, PanelActivity::class.java)
         else
             goToActivity(this, AuthActivity::class.java)
