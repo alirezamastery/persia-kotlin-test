@@ -100,8 +100,11 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$version_room"
 
-    // Expoxy
+    // Epoxy
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    // PersianDate
+    implementation 'com.github.dariushm2:PersianCaldroid:1.0.1'
 }

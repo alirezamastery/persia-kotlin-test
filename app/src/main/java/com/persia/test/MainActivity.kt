@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         AppPreferences.setup(applicationContext)
-        AppPreferences.accessToken = "ttt"
         Timber.i("auth stat: ${AppPreferences.isLoggedIn}")
 
         setContentView(R.layout.activity_main)
