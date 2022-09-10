@@ -1,12 +1,10 @@
 package com.persia.test.data.network.services.persiaatlas
 
+import com.persia.test.data.domain.models.Income
 import com.persia.test.data.network.services.persiaatlas.responses.*
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface PersiaAtlasService {
 
@@ -26,4 +24,7 @@ interface PersiaAtlasService {
 
     @GET("/api/accounting/incomes/")
     suspend fun getIncomes(): Response<PaginatedResponse<IncomeResponse>>
+
+    @GET("/api/accounting/incomes/{income-id}/")
+    suspend fun getIncomeById(@Path("income-id") incomeId: Long): Response<IncomeResponse>
 }

@@ -2,12 +2,11 @@ package com.persia.test.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.persia.test.data.network.NetworkLayer
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.IncomeEntity
 import com.persia.test.data.database.entities.asDomainModel
 import com.persia.test.data.domain.models.Income
-import com.persia.test.data.network.ApiClient
+import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 class IncomeRepository @Inject constructor(
     private val database: PersiaAtlasDatabase,
-    private val api: ApiClient
+    private val api: PersiaAtlasApiClient
 ) {
 
     val incomes: LiveData<List<Income>> = Transformations.map(

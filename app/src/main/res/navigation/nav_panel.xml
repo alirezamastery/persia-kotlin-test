@@ -13,17 +13,21 @@
     <fragment
         android:id="@+id/incomeListFragment"
         android:name="com.persia.test.ui.panel.accounting.income.IncomeListFragment"
-        android:label="fragment_income_list"
-        tools:layout="@layout/fragment_income_list" >
+        android:label="@string/incomes"
+        tools:layout="@layout/fragment_income_list">
         <action
             android:id="@+id/action_incomeListFragment_to_incomeDetailFragment"
-            app:destination="@id/incomeDetailFragment" />
+            app:destination="@id/incomeDetailFragment"
+            app:enterAnim="@anim/slide_in_from_left"
+            app:exitAnim="@anim/slide_out_to_right"
+            app:popEnterAnim="@anim/slide_in_from_right"
+            app:popExitAnim="@anim/slide_out_to_left" />
     </fragment>
     <fragment
         android:id="@+id/actualProductListFragment"
         android:name="com.persia.test.ui.panel.products.actualProduct.ActualProductListFragment"
         android:label="fragment_actual_product_list"
-        tools:layout="@layout/fragment_actual_product_list" >
+        tools:layout="@layout/fragment_actual_product_list">
         <action
             android:id="@+id/action_actualProductListFragment_to_actualProductDetailFragment"
             app:destination="@id/actualProductDetailFragment" />
@@ -37,7 +41,7 @@
         android:id="@+id/brandListFragment"
         android:name="com.persia.test.ui.panel.products.brand.BrandListFragment"
         android:label="fragment_brand_list"
-        tools:layout="@layout/fragment_brand_list" >
+        tools:layout="@layout/fragment_brand_list">
         <action
             android:id="@+id/action_brandListFragment_to_brandDetailFragment"
             app:destination="@id/brandDetailFragment" />
@@ -51,12 +55,16 @@
         android:id="@+id/incomeDetailFragment"
         android:name="com.persia.test.ui.panel.accounting.income.detail.IncomeDetailFragment"
         android:label="fragment_income_detail"
-        tools:layout="@layout/fragment_income_detail" />
+        tools:layout="@layout/fragment_income_detail" >
+        <argument
+            android:name="incomeId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.persia.test.ui.panel.products.product.ProductListFragment"
         android:label="fragment_product_list"
-        tools:layout="@layout/fragment_product_list" >
+        tools:layout="@layout/fragment_product_list">
         <action
             android:id="@+id/action_productListFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
@@ -70,7 +78,7 @@
         android:id="@+id/variantListFragment"
         android:name="com.persia.test.ui.panel.products.variant.VariantListFragment"
         android:label="fragment_variant_list"
-        tools:layout="@layout/fragment_variant_list" >
+        tools:layout="@layout/fragment_variant_list">
         <action
             android:id="@+id/action_variantListFragment_to_variantDetailFragment"
             app:destination="@id/variantDetailFragment" />
@@ -84,7 +92,7 @@
         android:id="@+id/costListFragment"
         android:name="com.persia.test.ui.panel.accounting.cost.CostListFragment"
         android:label="fragment_cost_list"
-        tools:layout="@layout/fragment_cost_list" >
+        tools:layout="@layout/fragment_cost_list">
         <action
             android:id="@+id/action_costListFragment_to_costDetailFragment"
             app:destination="@id/costDetailFragment" />

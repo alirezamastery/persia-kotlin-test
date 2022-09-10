@@ -2,6 +2,7 @@ package com.persia.test.ui.panel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,7 @@ class PanelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_panel)
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
         setupNavDrawer()
     }
 

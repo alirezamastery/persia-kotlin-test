@@ -1,25 +1,5 @@
 package com.persia.test.modules
 
-import android.os.Build
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.persia.test.Constants
-import com.persia.test.data.network.ApiClient
-import com.persia.test.data.network.AuthInterceptor
-import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import java.time.Duration
-import javax.inject.Named
-import javax.inject.Singleton
-
 
 // @Module
 // @InstallIn(SingletonComponent::class)

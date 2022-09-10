@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:padding="8dp"
             app:headerLayout="@layout/nav_panel_view_header"
             app:menu="@menu/nav_panel_drawer_menu" />
 

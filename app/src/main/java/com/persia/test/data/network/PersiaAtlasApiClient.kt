@@ -5,7 +5,7 @@ import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import com.persia.test.data.network.services.persiaatlas.responses.*
 import retrofit2.Response
 
-class ApiClient(
+class PersiaAtlasApiClient(
     private val persiaAtlasService: PersiaAtlasService
 ) {
 
@@ -32,5 +32,9 @@ class ApiClient(
 
     suspend fun getIncomes(): CustomResponse<PaginatedResponse<IncomeResponse>> {
         return safeApiCall { persiaAtlasService.getIncomes() }
+    }
+
+    suspend fun getIncomeById(incomeId: Long): CustomResponse<IncomeResponse> {
+        return safeApiCall { persiaAtlasService.getIncomeById(incomeId) }
     }
 }

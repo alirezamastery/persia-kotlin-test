@@ -104,6 +104,11 @@ dependencies {
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-paging:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-paging3:$epoxyVersion"
+
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 
     // PersianDate
     implementation 'com.github.dariushm2:PersianCaldroid:1.0.1'

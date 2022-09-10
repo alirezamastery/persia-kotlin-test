@@ -41,7 +41,7 @@ object NetworkLayer {
         retrofit.create(PersiaAtlasService::class.java)
     }
 
-    val persiaAtlasApi = ApiClient(persiaAtlasService)
+    val persiaAtlasApi = PersiaAtlasApiClient(persiaAtlasService)
 
 
     @Provides
@@ -86,7 +86,7 @@ object NetworkLayer {
 
     @Provides
     @Singleton
-    fun providesPersiaAtlasApi(persiaAtlasService: PersiaAtlasService): ApiClient {
-        return ApiClient(persiaAtlasService)
+    fun providesPersiaAtlasApi(persiaAtlasService: PersiaAtlasService): PersiaAtlasApiClient {
+        return PersiaAtlasApiClient(persiaAtlasService)
     }
 }

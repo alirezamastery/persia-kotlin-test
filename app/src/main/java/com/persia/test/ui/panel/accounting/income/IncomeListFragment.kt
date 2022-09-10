@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.persia.test.R
 import com.persia.test.databinding.FragmentIncomeListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,7 @@ class IncomeListFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
-        epoxyController = IncomeListEpoxyController()
+        epoxyController = IncomeListEpoxyController(::onIncomeSelected)
         binding.incomeListRecyclerView.setController(epoxyController)
 
         return binding.root
@@ -55,6 +56,15 @@ class IncomeListFragment : Fragment() {
                 epoxyController.setData(incomes)
             }
         }
+    }
+
+    private fun onIncomeSelected(incomeId: Long) {
+        Timber.i("income clicked: $incomeId")
+        val directions =
+            IncomeListFragmentDirections.actionIncomeListFragmentToIncomeDetailFragment(
+                incomeId = incomeId
+            )
+        findNavController().navigate(directions)
     }
 
 }

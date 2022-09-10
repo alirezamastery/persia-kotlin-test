@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.persia.test.global.AppPreferences
 import com.persia.test.ui.auth.AuthActivity
 import com.persia.test.ui.panel.PanelActivity
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
             goToActivity(this, PanelActivity::class.java)
         else
             goToActivity(this, AuthActivity::class.java)
+
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
     }
 
     private fun goToActivity(activity: Activity, clazz: Class<*>) {
