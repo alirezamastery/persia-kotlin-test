@@ -34,9 +34,9 @@ class IncomeRepository @Inject constructor(
      *
      * To actually load the videos for use, observe [incomes]
      */
-    suspend fun refreshIncomes() {
+    suspend fun refreshIncomes(pageIndex: Int) {
         withContext(Dispatchers.IO) {
-            val response = api.getIncomes()
+            val response = api.getIncomeList(pageIndex)
             Timber.i("income response: $response")
             if (response.isSuccessful) {
                 val incomes = response.body.items

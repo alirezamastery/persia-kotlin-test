@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.persia.test.R
 import com.persia.test.databinding.FragmentIncomeListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -45,18 +48,23 @@ class IncomeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchIncomes()
-        setupObservers()
-    }
-
-    private fun setupObservers() {
-        viewModel.repository.incomes.observe(viewLifecycleOwner) { incomes ->
-            incomes?.apply {
-                Timber.i("incomes: $incomes")
-                epoxyController.setData(incomes)
+        // viewModel.fetchIncomes()
+        // setupObservers()
+        lifecycleScope.launch {
+            viewModel.incomeFlow.collectLatest {
+                epoxyController.submitData(it)
             }
         }
     }
+
+    // private fun setupObservers() {
+    //     viewModel.repository.incomes.observe(viewLifecycleOwner) { incomes ->
+    //         incomes?.apply {
+    //             Timber.i("incomes: $incomes")
+    //             epoxyController.setData(incomes)
+    //         }
+    //     }
+    // }
 
     private fun onIncomeSelected(incomeId: Long) {
         Timber.i("income clicked: $incomeId")

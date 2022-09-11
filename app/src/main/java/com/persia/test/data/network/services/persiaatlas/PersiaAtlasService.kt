@@ -23,7 +23,7 @@ interface PersiaAtlasService {
     fun getIncomesAsync(): Deferred<PaginatedResponse<IncomeResponse>>
 
     @GET("/api/accounting/incomes/")
-    suspend fun getIncomes(): Response<PaginatedResponse<IncomeResponse>>
+    suspend fun getIncomeList(@Query("page") pageIndex: Int): Response<PaginatedResponse<IncomeResponse>>
 
     @GET("/api/accounting/incomes/{income-id}/")
     suspend fun getIncomeById(@Path("income-id") incomeId: Long): Response<IncomeResponse>

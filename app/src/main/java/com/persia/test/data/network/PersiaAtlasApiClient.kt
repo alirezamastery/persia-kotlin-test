@@ -30,8 +30,8 @@ class PersiaAtlasApiClient(
         return safeApiCall { persiaAtlasService.getUserProfile() }
     }
 
-    suspend fun getIncomes(): CustomResponse<PaginatedResponse<IncomeResponse>> {
-        return safeApiCall { persiaAtlasService.getIncomes() }
+    suspend fun getIncomeList(pageIndex: Int): CustomResponse<PaginatedResponse<IncomeResponse>> {
+        return safeApiCall { persiaAtlasService.getIncomeList(pageIndex) }
     }
 
     suspend fun getIncomeById(incomeId: Long): CustomResponse<IncomeResponse> {

@@ -3,7 +3,9 @@ package com.persia.test.ui.panel.accounting.income
 import android.os.Build
 import androidx.annotation.RequiresApi
 import calendar.PersianDate
+import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.TypedEpoxyController
+import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.persia.test.R
 import com.persia.test.data.domain.models.Income
 import com.persia.test.databinding.IncomeListHeaderBinding
@@ -14,25 +16,45 @@ import java.time.OffsetDateTime
 
 class IncomeListEpoxyController(
     private val incomeClickListener: (Long) -> Unit
-) : TypedEpoxyController<List<Income>>() {
+) : PagingDataEpoxyController<Income>() {
 
-    override fun buildModels(data: List<Income>?) {
-        if (data == null || data.isEmpty()) {
-            return
-        }
-        IncomeHeaderEpoxyModel().id("header").addTo(this)
-        data.forEach { income ->
-            IncomeEpoxyModel(
-                income = income,
-                onIncomeClicked = incomeClickListener
-            ).id(income.id).addTo(this)
+
+    override fun buildItemModel(currentPosition: Int, item: Income?): EpoxyModel<*> {
+        return IncomeListItemEpoxyModel(
+            income = item!!,
+            onIncomeClicked = incomeClickListener
+        ).id("income_${item.id}")
+    }
+
+    data class IncomeListItemEpoxyModel(
+        val income: Income,
+        val onIncomeClicked: (Long) -> Unit
+    ) : ViewBindingKotlinModel<ListItemIncomeBinding>(R.layout.list_item_income) {
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun ListItemIncomeBinding.bind() {
+            val localDate = OffsetDateTime.parse(income.createdAt)
+            val persianDate =
+                PersianDate(localDate.year, localDate.monthValue, localDate.dayOfMonth)
+            incomeTitleTextView.text = persianDate.toStringInPersian()
+            incomeAmountTextView.text = "%,d".format(income.amount)
+            root.setOnClickListener { onIncomeClicked(income.id) }
         }
     }
 
-    // // we can set click listener on the IncomeEpoxyModel
-    // private fun incomeClickListener(id: Long) {
-    //     Timber.i("clicked on income: $id")
+    // override fun buildModels(data: List<Income>?) {
+    //     if (data == null || data.isEmpty()) {
+    //         return
+    //     }
+    //     IncomeHeaderEpoxyModel().id("header").addTo(this)
+    //     data.forEach { income ->
+    //         IncomeEpoxyModel(
+    //             income = income,
+    //             onIncomeClicked = incomeClickListener
+    //         ).id(income.id).addTo(this)
+    //     }
     // }
+
 
     // --------------------- Models ---------------------
     class IncomeHeaderEpoxyModel :
@@ -58,4 +80,5 @@ class IncomeListEpoxyController(
             root.setOnClickListener { onIncomeClicked(income.id) }
         }
     }
+
 }
