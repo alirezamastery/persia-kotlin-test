@@ -2,6 +2,7 @@ package com.persia.test.ui.panel.accounting.income
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
@@ -13,22 +14,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+@ExperimentalPagingApi
 @HiltViewModel
 class IncomeListViewModel @Inject constructor(
     val repository: IncomeRepository,
-    val api: PersiaAtlasApiClient
 ) : ViewModel() {
 
-    val incomeFlow = Pager(
-        PagingConfig(
-            pageSize = Constants.PAGE_SIZE,
-            prefetchDistance = Constants.PREFETCH_DISTANCE,
-            enablePlaceholders = false
-        ),
-    ) {
-        IncomePagingSource(repository, api)
-    }.flow.cachedIn(viewModelScope)
-
+    val incomeFlow = repository.getAllIncomes()
 
     // fun fetchIncomes() {
     //     viewModelScope.launch {

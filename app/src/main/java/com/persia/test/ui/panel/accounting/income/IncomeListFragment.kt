@@ -9,7 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
 import com.persia.test.R
+import com.persia.test.data.domain.models.Income
 import com.persia.test.databinding.FragmentIncomeListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -17,6 +20,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class IncomeListFragment : Fragment() {
 
@@ -51,8 +55,8 @@ class IncomeListFragment : Fragment() {
         // viewModel.fetchIncomes()
         // setupObservers()
         lifecycleScope.launch {
-            viewModel.incomeFlow.collectLatest {
-                epoxyController.submitData(it)
+            viewModel.incomeFlow.collectLatest { pagingData: PagingData<Income> ->
+                epoxyController.submitData(pagingData)
             }
         }
     }

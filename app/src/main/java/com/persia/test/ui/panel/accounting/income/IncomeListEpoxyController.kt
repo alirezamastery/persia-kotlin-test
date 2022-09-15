@@ -21,24 +21,26 @@ class IncomeListEpoxyController(
 
     override fun buildItemModel(currentPosition: Int, item: Income?): EpoxyModel<*> {
         return IncomeListItemEpoxyModel(
-            income = item!!,
+            income = item,
             onIncomeClicked = incomeClickListener
-        ).id("income_${item.id}")
+        ).id("income_${item?.id}")
     }
 
     data class IncomeListItemEpoxyModel(
-        val income: Income,
+        val income: Income?,
         val onIncomeClicked: (Long) -> Unit
     ) : ViewBindingKotlinModel<ListItemIncomeBinding>(R.layout.list_item_income) {
 
         @RequiresApi(Build.VERSION_CODES.O)
         override fun ListItemIncomeBinding.bind() {
-            val localDate = OffsetDateTime.parse(income.createdAt)
-            val persianDate =
-                PersianDate(localDate.year, localDate.monthValue, localDate.dayOfMonth)
-            incomeTitleTextView.text = persianDate.toStringInPersian()
-            incomeAmountTextView.text = "%,d".format(income.amount)
-            root.setOnClickListener { onIncomeClicked(income.id) }
+            income?.let {
+                val localDate = OffsetDateTime.parse(income.createdAt)
+                val persianDate =
+                    PersianDate(localDate.year, localDate.monthValue, localDate.dayOfMonth)
+                incomeTitleTextView.text = persianDate.toStringInPersian()
+                incomeAmountTextView.text = "%,d".format(income.id)
+                root.setOnClickListener { onIncomeClicked(income.id) }
+            }
         }
     }
 

@@ -1,9 +1,9 @@
 package com.persia.test.modules
 
 import android.app.Application
-import android.content.Context
 import com.persia.test.data.database.PersiaAtlasDao
 import com.persia.test.data.database.PersiaAtlasDatabase
+import com.persia.test.data.database.dao.IncomeRemoteKeysDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +25,12 @@ object AppModule {
     @Provides
     fun providePersiaAtlasDao(persiaAtlasDatabase: PersiaAtlasDatabase): PersiaAtlasDao {
         return persiaAtlasDatabase.providePersiaAtlasDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideIncomeRemoteKeysDao(persiaAtlasDatabase: PersiaAtlasDatabase): IncomeRemoteKeysDao {
+        return persiaAtlasDatabase.provideIncomeRemoteKeysDao()
     }
 }
 

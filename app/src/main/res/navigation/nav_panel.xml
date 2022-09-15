@@ -76,7 +76,7 @@
         tools:layout="@layout/fragment_product_detail" />
     <fragment
         android:id="@+id/variantListFragment"
-        android:name="com.persia.test.ui.panel.products.variant.VariantListFragment"
+        android:name="com.persia.test.ui.panel.products.variant.list.VariantListFragment"
         android:label="fragment_variant_list"
         tools:layout="@layout/fragment_variant_list">
         <action

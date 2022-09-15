@@ -1,14 +1,16 @@
 package com.persia.test.ui.panel.accounting.income
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.persia.test.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.domain.models.Income
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.asDomainModel
 import com.persia.test.data.repository.IncomeRepository
 import timber.log.Timber
 
-
+@ExperimentalPagingApi
 class IncomePagingSource(
     val repository: IncomeRepository,
     val api: PersiaAtlasApiClient
@@ -18,7 +20,7 @@ class IncomePagingSource(
         val pageNumber = params.key ?: 1
         val previousKey = if (pageNumber == 1) null else pageNumber - 1
 
-        val response = api.getIncomeList(pageNumber)
+        val response = api.getIncomeList(pageIndex = pageNumber, pageSize = PAGE_SIZE)
         val incomeList = response.body.items.map { incomeResponse ->
             incomeResponse.asDomainModel()
         }
