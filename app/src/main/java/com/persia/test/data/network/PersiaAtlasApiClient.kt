@@ -3,6 +3,7 @@ package com.persia.test.data.network
 import com.persia.test.data.network.services.persiaatlas.PaginatedResponse
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import com.persia.test.data.network.services.persiaatlas.responses.*
+import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import retrofit2.Response
 
 class PersiaAtlasApiClient(
@@ -18,6 +19,7 @@ class PersiaAtlasApiClient(
     }
 
     // api calls
+
     suspend fun login(loginCredentials: LoginRequest): CustomResponse<LoginResponse> {
         return safeApiCall { persiaAtlasService.login(loginCredentials) }
     }
@@ -30,6 +32,8 @@ class PersiaAtlasApiClient(
         return safeApiCall { persiaAtlasService.getUserProfile() }
     }
 
+    // #################### Accounting ####################
+    // ********** Income **********
     suspend fun getIncomeList(
         pageIndex: Int,
         pageSize: Int
@@ -40,4 +44,18 @@ class PersiaAtlasApiClient(
     suspend fun getIncomeById(incomeId: Long): CustomResponse<IncomeResponse> {
         return safeApiCall { persiaAtlasService.getIncomeById(incomeId) }
     }
+
+    // #################### Products ####################
+    // ********** Variant **********
+    suspend fun getVariantList(
+        pageNumber: Int,
+        pageSize: Int
+    ): CustomResponse<PaginatedResponse<VariantResponse>> {
+        return safeApiCall { persiaAtlasService.getVariantList(pageNumber, pageSize) }
+    }
+
+    suspend fun getVariantById(variantId: Long): CustomResponse<VariantResponse> {
+        return safeApiCall { persiaAtlasService.getVariantById(variantId) }
+    }
+
 }
