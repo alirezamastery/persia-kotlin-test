@@ -1,4 +1,4 @@
-package com.persia.test.ui.panel.products.variant
+package com.persia.test.ui.panel.products.variant.list
 
 import androidx.lifecycle.ViewModel
 
