@@ -4,6 +4,6 @@ data class Selector(
     val id: Long,
     val digikala_id: Long,
     val value: String,
-    val extra_info: String,
+    val extra_info: String?,
     val selector_type: SelectorType,
 )

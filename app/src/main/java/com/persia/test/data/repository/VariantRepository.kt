@@ -22,15 +22,15 @@ class VariantRepository @Inject constructor(
 ) {
 
     fun getAllVariants(): Flow<PagingData<Variant>> {
-        // val pagingSourceFactory = { database.variantDao().getAllVariants() }
-        val pagingSourceFactory = { VariantPagingSource(api) }
+        val pagingSourceFactory = { database.variantDao().getAllVariants() }
+        // val pagingSourceFactory = { VariantPagingSource(api) }
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 // prefetchDistance = PREFETCH_DISTANCE,
                 enablePlaceholders = false
             ),
-            // remoteMediator = VariantRemoteMediator(api = api, database = database),
+            remoteMediator = VariantRemoteMediator(api = api, database = database),
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }

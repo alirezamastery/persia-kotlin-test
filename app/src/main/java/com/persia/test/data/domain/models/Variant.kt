@@ -12,5 +12,5 @@ data class Variant(
     // val actualProduct: ActualProduct
     val product: Long,
     val selector: Long,
-    val actualProduct: Long
+    val actualProduct: Long?
 )

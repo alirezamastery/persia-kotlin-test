@@ -22,7 +22,7 @@ data class VariantEntity(
 
     val product: Long,
     val selector: Long,
-    val actualProduct: Long
+    val actualProduct: Long?
 ) {
 
     fun asDomainModel(): Variant {

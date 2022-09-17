@@ -21,6 +21,7 @@ class VariantPagingSource(
 
         val pageRequest = api.getVariantList(pageNumber = pageNumber, pageSize = PAGE_SIZE)
         pageRequest.exception?.let {
+            Timber.e("ERROR! $it")
             return LoadResult.Error(it)
         }
         val nextPage = getPageIndexFromNext(pageRequest.body.next)
@@ -52,6 +53,13 @@ class VariantPagingSource(
 
     private fun getPageIndexFromNext(next: String?): Int? {
         Timber.i("next: $next")
-        return next?.split("page=")?.get(1)?.substring(0,1)?.toInt()
+        val pageSection = "page=([0-9]+)".toRegex().find(next.toString())?.value
+        Timber.i("page sec : $pageSection")
+        if (pageSection != null) {
+            val pageNumber = pageSection.split("page=")[1].toInt()
+            Timber.i("number: $pageNumber")
+            return pageNumber
+        }
+        return null
     }
 }

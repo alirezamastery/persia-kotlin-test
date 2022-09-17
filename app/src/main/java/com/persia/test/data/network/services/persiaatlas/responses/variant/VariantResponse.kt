@@ -13,7 +13,7 @@ data class VariantResponse(
     val has_competition: Boolean,
     val product: Product,
     val selector: Selector,
-    val actual_product: ActualProduct,
+    val actual_product: ActualProduct?,
 ) {
 
     fun asDomainModel(): Variant {
@@ -26,7 +26,7 @@ data class VariantResponse(
             hasCompetition = has_competition,
             product = product.id,
             selector = selector.id,
-            actualProduct = actual_product.id
+            actualProduct = actual_product?.id
         )
     }
 
@@ -40,7 +40,7 @@ data class VariantResponse(
             hasCompetition = has_competition,
             product = product.id,
             selector = selector.id,
-            actualProduct = actual_product.id
+            actualProduct = actual_product?.id
         )
     }
 }
