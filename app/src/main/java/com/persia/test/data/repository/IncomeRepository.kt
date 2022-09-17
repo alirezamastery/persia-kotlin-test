@@ -1,15 +1,12 @@
 package com.persia.test.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.persia.test.Constants.Companion.PAGE_SIZE
+import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.IncomeEntity
-import com.persia.test.data.database.entities.asDomainModel
 import com.persia.test.data.domain.models.Income
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.asDatabaseModel

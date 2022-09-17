@@ -5,7 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.persia.test.Constants.Companion.PAGE_SIZE
+import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.data.database.entities.VariantPagingRemoteKeyEntity

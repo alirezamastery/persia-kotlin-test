@@ -2,16 +2,13 @@ package com.persia.test.global
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.persia.test.Constants
 import com.persia.test.R
-import timber.log.Timber
 
 /**
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.

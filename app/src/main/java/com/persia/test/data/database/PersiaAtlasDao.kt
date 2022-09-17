@@ -11,7 +11,7 @@ import com.persia.test.data.domain.models.Income
 @Dao
 interface PersiaAtlasDao {
 
-    @Query("select * from income")
+    @Query("SELECT * FROM income")
     fun getIncomes(): PagingSource<Int, Income>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,6 +20,6 @@ interface PersiaAtlasDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertIncomeList(incomes: List<IncomeEntity>)
 
-    @Query("delete from income")
+    @Query("DELETE FROM income")
     fun deleteAllIncomes(): Int
 }

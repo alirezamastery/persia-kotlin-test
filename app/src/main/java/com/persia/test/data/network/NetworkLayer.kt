@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.persia.test.Constants
+import com.persia.test.global.Constants
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import dagger.Module
 import dagger.Provides

@@ -1,40 +1,42 @@
-package com.persia.test.ui.panel.accounting.income
+package com.persia.test.ui.panel.products.variant.list
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.persia.test.global.Constants.Companion.PAGE_SIZE
-import com.persia.test.data.domain.models.Income
+import com.persia.test.data.domain.models.Variant
 import com.persia.test.data.network.PersiaAtlasApiClient
-import com.persia.test.data.network.services.persiaatlas.responses.asDomainModel
-import com.persia.test.data.repository.IncomeRepository
 import timber.log.Timber
+import kotlin.time.TimedValue
+
 
 @ExperimentalPagingApi
-class IncomePagingSource(
-    val repository: IncomeRepository,
-    val api: PersiaAtlasApiClient
-) : PagingSource<Int, Income>() {
+class VariantPagingSource(
+    private val api: PersiaAtlasApiClient
+) : PagingSource<Int, Variant>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Income> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Variant> {
         val pageNumber = params.key ?: 1
         val previousKey = if (pageNumber == 1) null else pageNumber - 1
 
-        val response = api.getIncomeList(pageIndex = pageNumber, pageSize = PAGE_SIZE)
-        val incomeList = response.body.items.map { incomeResponse ->
-            incomeResponse.asDomainModel()
+        val pageRequest = api.getVariantList(pageNumber = pageNumber, pageSize = PAGE_SIZE)
+        pageRequest.exception?.let {
+            return LoadResult.Error(it)
         }
+        val nextPage = getPageIndexFromNext(pageRequest.body.next)
 
-        Timber.i("income list in source: $incomeList")
-
+        Timber.i("*".repeat(100))
+        Timber.i(" previousKey: $previousKey | pageNumber: $pageNumber | nextPage: $nextPage")
         return LoadResult.Page(
-            data = incomeList,
+            data = pageRequest.body.items.map { variantResponse ->
+                variantResponse.asDomainModel()
+            },
             prevKey = previousKey,
-            nextKey = getPageIndexFromNext(response.body.next)
+            nextKey = nextPage
         )
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Income>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Variant>): Int? {
         // Try to find the page key of the closest page to anchorPosition, from
         // either the prevKey or the nextKey, but you need to handle nullability
         // here:
@@ -42,7 +44,6 @@ class IncomePagingSource(
         //  * nextKey == null -> anchorPage is the last page.
         //  * both prevKey and nextKey null -> anchorPage is the initial page, so
         //    just return null.
-        Timber.i("refresh key")
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
@@ -50,8 +51,7 @@ class IncomePagingSource(
     }
 
     private fun getPageIndexFromNext(next: String?): Int? {
-        Timber.i("find next: $next")
-        return next?.split("?page=")?.get(1)?.toInt()
+        Timber.i("next: $next")
+        return next?.split("page=")?.get(1)?.substring(0,1)?.toInt()
     }
-
 }

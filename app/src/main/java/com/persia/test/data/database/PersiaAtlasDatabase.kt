@@ -2,7 +2,7 @@ package com.persia.test.data.database
 
 import android.content.Context
 import androidx.room.*
-import com.persia.test.Constants.Companion.DATABASE_NAME
+import com.persia.test.global.Constants.Companion.DATABASE_NAME
 import com.persia.test.data.database.dao.IncomeRemoteKeysDao
 import com.persia.test.data.database.dao.VariantDao
 import com.persia.test.data.database.dao.VariantPagingRemoteKeyDao

@@ -14,7 +14,7 @@ class VariantListEpoxyController(
     override fun buildItemModel(currentPosition: Int, item: Variant?): EpoxyModel<*> {
         return VariantListItemEpoxyModel(
             variant = item,
-            onClick = clickListener
+            onClick = { variantId -> clickListener(variantId) }
         ).id("variant_${item?.id}")
     }
 
@@ -26,7 +26,7 @@ class VariantListEpoxyController(
         override fun ListItemVariantBinding.bind() {
             variant?.let {
                 variantDKPCTextView.text = variant.id.toString()
-                root.setOnClickListener { onClick }
+                root.setOnClickListener { onClick(variant.id) }
             }
         }
     }
