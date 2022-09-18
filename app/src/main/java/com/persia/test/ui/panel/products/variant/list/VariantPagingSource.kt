@@ -3,6 +3,7 @@ package com.persia.test.ui.panel.products.variant.list
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.persia.test.data.domain.mappers.VariantMapper
 import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.domain.models.Variant
 import com.persia.test.data.network.PersiaAtlasApiClient
@@ -30,7 +31,8 @@ class VariantPagingSource(
         Timber.i(" previousKey: $previousKey | pageNumber: $pageNumber | nextPage: $nextPage")
         return LoadResult.Page(
             data = pageRequest.body.items.map { variantResponse ->
-                variantResponse.asDomainModel()
+                // variantResponse.asDomainModel()
+                VariantMapper.buildFrom(variantResponse)
             },
             prevKey = previousKey,
             nextKey = nextPage

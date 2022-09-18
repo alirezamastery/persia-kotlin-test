@@ -21,37 +21,38 @@ data class VariantEntity(
     val hasCompetition: Boolean,
 
     val product: Long,
+    // val productId: Long,
     val selector: Long,
-    val actualProduct: Long?
+    val actualProduct: Long?,
 ) {
 
-    fun asDomainModel(): Variant {
-        return Variant(
-            id = id,
-            dkpc = dkpc,
-            priceMin = priceMin,
-            stopLoss = stopLoss,
-            isActive = isActive,
-            hasCompetition = hasCompetition,
-            product = product,
-            selector = selector,
-            actualProduct = actualProduct
-        )
-    }
+    // fun asDomainModel(): Variant {
+    //     return Variant(
+    //         id = id,
+    //         dkpc = dkpc,
+    //         priceMin = priceMin,
+    //         stopLoss = stopLoss,
+    //         isActive = isActive,
+    //         hasCompetition = hasCompetition,
+    //         product = product,
+    //         selector = selector,
+    //         actualProduct = actualProduct
+    //     )
+    // }
 }
 
-fun List<VariantEntity>.asDomainModel(): List<Variant> {
-    return map {
-        Variant(
-            id = it.id,
-            dkpc = it.dkpc,
-            priceMin = it.priceMin,
-            stopLoss = it.stopLoss,
-            isActive = it.isActive,
-            hasCompetition = it.hasCompetition,
-            product = it.product,
-            selector = it.selector,
-            actualProduct = it.actualProduct
-        )
-    }
-}
+// fun List<VariantEntity>.asDomainModel(): List<Variant> {
+//     return map {
+//         Variant(
+//             id = it.id,
+//             dkpc = it.dkpc,
+//             priceMin = it.priceMin,
+//             stopLoss = it.stopLoss,
+//             isActive = it.isActive,
+//             hasCompetition = it.hasCompetition,
+//             product = it.product,
+//             selector = it.selector,
+//             actualProduct = it.actualProduct
+//         )
+//     }
+// }

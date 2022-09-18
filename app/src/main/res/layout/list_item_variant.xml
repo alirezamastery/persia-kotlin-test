@@ -3,19 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/ListHeader"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/lightGray"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/variantDKPCTextView"
-            style="@style/ListHeaderCell"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="test" />
+            android:orientation="vertical"
+            android:padding="8dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/productColon" />
+
+                <TextView
+                    android:id="@+id/variantProductTextView"
+                    style="@style/ListItemValue"
+                    tools:text="کارا" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/dkpcColon"
+                    android:gravity="end"/>
+
+                <TextView
+                    android:id="@+id/variantDKPCTextView"
+                    style="@style/ListItemValue"
+                    tools:text="26549867" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/selectorColon" />
+
+                <TextView
+                    android:id="@+id/variantSelectorTextView"
+                    style="@style/ListItemValue"
+                    tools:text="مشکی" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/priceMinRialColon" />
+
+                <TextView
+                    android:id="@+id/variantPriceMinTextView"
+                    style="@style/ListItemValue"
+                    tools:text="مشکی" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/hasCompetitionColon" />
+
+                <TextView
+                    android:id="@+id/variantHasCompetitionTextView"
+                    style="@style/ListItemValue"
+                    tools:text="بله"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/ListItemRow">
+
+                <TextView
+                    style="@style/ListItemName"
+                    android:text="@string/hisActiveColon" />
+
+                <ImageView
+                    style="@style/ListItemValue"
+                    android:id="@+id/variantIsActiveImageView"
+                    tools:drawable="@drawable/ic_baseline_child_care_24"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -9,6 +9,8 @@ import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.data.database.entities.VariantPagingRemoteKeyEntity
+import com.persia.test.data.domain.mappers.ChaikinMapper
+import com.persia.test.data.domain.mappers.VariantMapper
 import com.persia.test.data.domain.models.Variant
 import com.persia.test.data.network.PersiaAtlasApiClient
 import timber.log.Timber
@@ -50,6 +52,10 @@ class VariantRemoteMediator(
             val response = api.getVariantList(pageNumber = currentPage, pageSize = PAGE_SIZE)
             val endOfPaginationReached = response.body.next == null
 
+            val ch = response.body.items.map { variantResponse ->
+                ChaikinMapper.buildFrom(variantResponse)
+            }
+
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
@@ -63,7 +69,8 @@ class VariantRemoteMediator(
                     database.variantRemoteKeysDao().clearRemoteKeys()
                 }
                 val variants = response.body.items.map { variantResponse ->
-                    variantResponse.asDomainModel()
+                    // variantResponse.asDomainModel()
+                    VariantMapper.buildFrom(variantResponse)
                 }
                 val keys = variants.map { variant ->
                     VariantPagingRemoteKeyEntity(

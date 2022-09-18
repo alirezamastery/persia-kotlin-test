@@ -25,7 +25,19 @@ class VariantListEpoxyController(
 
         override fun ListItemVariantBinding.bind() {
             variant?.let {
-                variantDKPCTextView.text = variant.id.toString()
+                // variantProductTextView.text= variant.product.title
+                variantDKPCTextView.text = variant.dkpc.toString()
+                variantPriceMinTextView.text = "%,d".format(variant.priceMin)
+                if (variant.hasCompetition) {
+                    variantHasCompetitionTextView.setText(R.string.yes)
+                } else {
+                    variantHasCompetitionTextView.setText(R.string.no)
+                }
+                if (variant.isActive) {
+                    variantIsActiveImageView.setImageResource(R.drawable.ic_baseline_check_circle_24)
+                } else {
+                    variantIsActiveImageView.setImageResource(R.drawable.ic_baseline_cancel_24)
+                }
                 root.setOnClickListener { onClick(variant.id) }
             }
         }

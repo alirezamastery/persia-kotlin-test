@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/actualProductListFragment"
         android:name="com.persia.test.ui.panel.products.actualProduct.ActualProductListFragment"
-        android:label="fragment_actual_product_list"
+        android:label="@string/actual_products"
         tools:layout="@layout/fragment_actual_product_list">
         <action
             android:id="@+id/action_actualProductListFragment_to_actualProductDetailFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/brandListFragment"
         android:name="com.persia.test.ui.panel.products.brand.BrandListFragment"
-        android:label="fragment_brand_list"
+        android:label="@string/brands"
         tools:layout="@layout/fragment_brand_list">
         <action
             android:id="@+id/action_brandListFragment_to_brandDetailFragment"
@@ -63,7 +63,7 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.persia.test.ui.panel.products.product.ProductListFragment"
-        android:label="fragment_product_list"
+        android:label="@string/products"
         tools:layout="@layout/fragment_product_list">
         <action
             android:id="@+id/action_productListFragment_to_productDetailFragment"
@@ -77,7 +77,7 @@
     <fragment
         android:id="@+id/variantListFragment"
         android:name="com.persia.test.ui.panel.products.variant.list.VariantListFragment"
-        android:label="fragment_variant_list"
+        android:label="@string/variants"
         tools:layout="@layout/fragment_variant_list">
         <action
             android:id="@+id/action_variantListFragment_to_variantDetailFragment"
@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/costListFragment"
         android:name="com.persia.test.ui.panel.accounting.cost.CostListFragment"
-        android:label="fragment_cost_list"
+        android:label="@string/costs"
         tools:layout="@layout/fragment_cost_list">
         <action
             android:id="@+id/action_costListFragment_to_costDetailFragment"

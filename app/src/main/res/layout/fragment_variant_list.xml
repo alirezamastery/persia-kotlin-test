@@ -8,10 +8,9 @@
         android:id="@+id/variantListEpoxyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:padding="8dp"
-        app:itemSpacing="4dp"
+        app:itemSpacing="8dp"
         tools:itemCount="7"
         tools:listitem="@layout/list_item_variant" />
 
