@@ -25,7 +25,7 @@ class VariantListEpoxyController(
 
         override fun ListItemVariantBinding.bind() {
             variant?.let {
-                // variantProductTextView.text= variant.product.title
+                variantProductTextView.text = variant.productEntity.title
                 variantDKPCTextView.text = variant.dkpc.toString()
                 variantPriceMinTextView.text = "%,d".format(variant.priceMin)
                 if (variant.hasCompetition) {

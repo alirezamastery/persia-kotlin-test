@@ -1,5 +1,6 @@
 package com.persia.test.data.database.entities
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -18,8 +19,10 @@ data class VariantEntity(
     val isActive: Boolean,
     val hasCompetition: Boolean,
 
-    val product: Long,
+    // val product: Long,
     // val productId: Long,
+    @Embedded(prefix = "product_")
+    val productEntity: ProductEntity,
     val selector: Long,
     val actualProduct: Long?,
 )

@@ -1,5 +1,6 @@
 package com.persia.test.data.network.services.persiaatlas.responses.variant
 
+import com.persia.test.data.database.entities.ProductEntity
 import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.data.domain.models.Variant
 
@@ -45,7 +46,14 @@ data class VariantResponse(
             stopLoss = stop_loss,
             isActive = is_active,
             hasCompetition = has_competition,
-            product = product.id,
+            // product = product.id,
+            productEntity=ProductEntity(
+                id = product.id,
+                dkp = product.dkp,
+                title = product.title,
+                isActive = product.is_active,
+                typeId = product.type.id
+            ),
             selector = selector.id,
             actualProduct = actual_product?.id
         )
