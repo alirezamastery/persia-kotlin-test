@@ -27,7 +27,7 @@ class VariantRepository @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                // prefetchDistance = PREFETCH_DISTANCE,
+                prefetchDistance = PREFETCH_DISTANCE,
                 enablePlaceholders = false
             ),
             remoteMediator = VariantRemoteMediator(api = api, database = database),

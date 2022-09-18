@@ -13,7 +13,7 @@ import com.persia.test.data.domain.models.Variant
 interface VariantDao {
     // @Query("SELECT * FROM variant")
     // fun getAllVariants(): PagingSource<Int, VariantEntity>
-    @Query("SELECT * FROM variant")
+    @Query("SELECT * FROM variant ORDER BY id DESC")
     fun getAllVariants(): PagingSource<Int, Variant>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
