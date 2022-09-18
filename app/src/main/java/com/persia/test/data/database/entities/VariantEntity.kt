@@ -23,8 +23,10 @@ data class VariantEntity(
     // val productId: Long,
     @Embedded(prefix = "product_")
     val productEntity: ProductEntity,
-    val selector: Long,
-    val actualProduct: Long?,
+    @Embedded(prefix = "selector_")
+    val selector: VariantSelectorEntity,
+    @Embedded(prefix = "actual_product_")
+    val actualProduct: ActualProductEntity?,
 )
 // {
 //

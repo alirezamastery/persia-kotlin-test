@@ -18,8 +18,8 @@ data class VariantSelectorEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Long,
 
-    val digikalaId: Int,
+    val digikalaId: Long,
     val value: String,
-    val extraInfo: String,
+    val extraInfo: String?,
     val selectorTypeId: Long
 )

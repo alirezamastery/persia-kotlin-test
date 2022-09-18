@@ -28,6 +28,7 @@ class VariantListEpoxyController(
                 variantProductTextView.text = variant.productEntity.title
                 variantDKPCTextView.text = variant.dkpc.toString()
                 variantPriceMinTextView.text = "%,d".format(variant.priceMin)
+                variantSelectorTextView.text = variant.selector.value
                 if (variant.hasCompetition) {
                     variantHasCompetitionTextView.setText(R.string.yes)
                 } else {
