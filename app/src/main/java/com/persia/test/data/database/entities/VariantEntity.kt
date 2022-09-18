@@ -2,8 +2,6 @@ package com.persia.test.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.persia.test.data.domain.models.Income
-import com.persia.test.data.domain.models.Variant
 
 
 @Entity(
@@ -24,23 +22,24 @@ data class VariantEntity(
     // val productId: Long,
     val selector: Long,
     val actualProduct: Long?,
-) {
-
-    // fun asDomainModel(): Variant {
-    //     return Variant(
-    //         id = id,
-    //         dkpc = dkpc,
-    //         priceMin = priceMin,
-    //         stopLoss = stopLoss,
-    //         isActive = isActive,
-    //         hasCompetition = hasCompetition,
-    //         product = product,
-    //         selector = selector,
-    //         actualProduct = actualProduct
-    //     )
-    // }
-}
-
+)
+// {
+//
+//     fun asDomainModel(): Variant {
+//         return Variant(
+//             id = id,
+//             dkpc = dkpc,
+//             priceMin = priceMin,
+//             stopLoss = stopLoss,
+//             isActive = isActive,
+//             hasCompetition = hasCompetition,
+//             product = product,
+//             selector = selector,
+//             actualProduct = actualProduct
+//         )
+//     }
+// }
+//
 // fun List<VariantEntity>.asDomainModel(): List<Variant> {
 //     return map {
 //         Variant(

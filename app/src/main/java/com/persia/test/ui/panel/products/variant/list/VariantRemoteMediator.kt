@@ -9,9 +9,6 @@ import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.data.database.entities.VariantPagingRemoteKeyEntity
-import com.persia.test.data.domain.mappers.ChaikinMapper
-import com.persia.test.data.domain.mappers.VariantMapper
-import com.persia.test.data.domain.models.Variant
 import com.persia.test.data.network.PersiaAtlasApiClient
 import timber.log.Timber
 
@@ -20,12 +17,13 @@ import timber.log.Timber
 class VariantRemoteMediator(
     private val api: PersiaAtlasApiClient,
     private val database: PersiaAtlasDatabase
-) : RemoteMediator<Int, Variant>() {
+) : RemoteMediator<Int, VariantEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Variant>
+        state: PagingState<Int, VariantEntity>
     ): MediatorResult {
+        Timber.i("*".repeat(120))
         return try {
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
@@ -52,16 +50,13 @@ class VariantRemoteMediator(
             val response = api.getVariantList(pageNumber = currentPage, pageSize = PAGE_SIZE)
             val endOfPaginationReached = response.body.next == null
 
-            val ch = response.body.items.map { variantResponse ->
-                ChaikinMapper.buildFrom(variantResponse)
-            }
-
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
-            Timber.i("loadType: $loadType | state: ${state.pages.size}")
-            Timber.i("currentPage: $currentPage | body: ${response.body.next}")
-            Timber.i("isEnd: $endOfPaginationReached | prev: $prevPage | next: $nextPage")
+            Timber.i("loadType: $loadType | page size: ${state.pages.size}")
+            Timber.i("currentPage: $currentPage")
+            Timber.i("isEnd: $endOfPaginationReached | prevPage: $prevPage | nextPage: $nextPage")
+            Timber.i("res previous: ${response.body.previous} | res next: ${response.body.next}")
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -69,8 +64,7 @@ class VariantRemoteMediator(
                     database.variantRemoteKeysDao().clearRemoteKeys()
                 }
                 val variants = response.body.items.map { variantResponse ->
-                    // variantResponse.asDomainModel()
-                    VariantMapper.buildFrom(variantResponse)
+                    variantResponse.asDomainModel()
                 }
                 val keys = variants.map { variant ->
                     VariantPagingRemoteKeyEntity(
@@ -95,7 +89,7 @@ class VariantRemoteMediator(
 
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, Variant>
+        state: PagingState<Int, VariantEntity>
     ): VariantPagingRemoteKeyEntity? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
@@ -105,7 +99,7 @@ class VariantRemoteMediator(
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, Variant>
+        state: PagingState<Int, VariantEntity>
     ): VariantPagingRemoteKeyEntity? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { variant ->
@@ -114,7 +108,7 @@ class VariantRemoteMediator(
     }
 
     private suspend fun getRemoteKeyForLastItem(
-        state: PagingState<Int, Variant>
+        state: PagingState<Int, VariantEntity>
     ): VariantPagingRemoteKeyEntity? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { variant ->

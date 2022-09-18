@@ -1,6 +1,5 @@
 package com.persia.test.ui.panel.products.variant.list
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.persia.test.R
-import com.persia.test.data.domain.models.Variant
+import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.databinding.FragmentVariantListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -50,7 +49,7 @@ class VariantListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            viewModel.variantFLow.collectLatest { pagingData: PagingData<Variant> ->
+            viewModel.variantFLow.collectLatest { pagingData: PagingData<VariantEntity> ->
                 epoxyController.submitData(pagingData = pagingData)
             }
         }

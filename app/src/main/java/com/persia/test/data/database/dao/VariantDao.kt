@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.persia.test.data.database.entities.VariantEntity
-import com.persia.test.data.domain.models.Variant
 
 
 @Dao
