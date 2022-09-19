@@ -1,9 +1,6 @@
 package com.persia.test.data.network.services.persiaatlas.responses.variant
 
-import com.persia.test.data.database.entities.ActualProductEntity
-import com.persia.test.data.database.entities.ProductEntity
-import com.persia.test.data.database.entities.VariantEntity
-import com.persia.test.data.database.entities.VariantSelectorEntity
+import com.persia.test.data.database.entities.*
 import com.persia.test.data.domain.models.Variant
 
 
@@ -41,15 +38,6 @@ data class VariantResponse(
     }
 
     fun asDatabaseModel(): VariantEntity {
-        var actualProduct: ActualProductEntity? = null
-        if (actual_product != null) {
-            actualProduct = ActualProductEntity(
-                id = actual_product.id,
-                title = actual_product.title,
-                priceStep = actual_product.price_step,
-                brandId = actual_product.brand.id
-            )
-        }
         return VariantEntity(
             id = id,
             dkpc = dkpc,
@@ -72,7 +60,17 @@ data class VariantResponse(
                 extraInfo = selector.extra_info,
                 selectorTypeId = selector.selector_type.id
             ),
-            actualProduct = actualProduct
+            actualProduct = actual_product?.let { ap ->
+                ActualProductEntity(
+                    id = ap.id,
+                    title = ap.title,
+                    priceStep = ap.price_step,
+                    brand = BrandEntity(
+                        id = ap.brand.id,
+                        title = ap.brand.title
+                    )
+                )
+            }
         )
     }
 }

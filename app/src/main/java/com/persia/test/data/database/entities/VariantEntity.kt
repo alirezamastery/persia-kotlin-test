@@ -25,7 +25,6 @@ data class VariantEntity(
     val productEntity: ProductEntity,
     @Embedded(prefix = "selector_")
     val selector: VariantSelectorEntity,
-    @Embedded(prefix = "actual_product_")
     val actualProduct: ActualProductEntity?,
 )
 // {

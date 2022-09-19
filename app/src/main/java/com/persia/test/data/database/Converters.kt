@@ -1,14 +1,14 @@
 package com.persia.test.data.database
 
-import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.persia.test.data.database.entities.ActualProductEntity
+import com.persia.test.data.database.entities.BrandEntity
 import com.persia.test.data.domain.models.Variant
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.*
 
 
-@ProvidedTypeConverter
 class Converters() {
 
     private val moshi = Moshi.Builder()
@@ -33,5 +33,25 @@ class Converters() {
     @TypeConverter
     fun toVariantSelector(json: String): Variant.VariantSelector {
         return moshi.adapter(Variant.VariantSelector::class.java).fromJson(json)!!
+    }
+
+    @TypeConverter
+    fun fromActualProductEntity(data: ActualProductEntity?): String {
+        return moshi.adapter(ActualProductEntity::class.java).toJson(data)
+    }
+
+    @TypeConverter
+    fun toActualProductEntity(json: String): ActualProductEntity? {
+        return moshi.adapter(ActualProductEntity::class.java).fromJson(json)
+    }
+
+    @TypeConverter
+    fun fromBrandEntity(data: BrandEntity?): String {
+        return moshi.adapter(BrandEntity::class.java).toJson(data)
+    }
+
+    @TypeConverter
+    fun toBrandEntity(json: String): BrandEntity? {
+        return moshi.adapter(BrandEntity::class.java).fromJson(json)
     }
 }
