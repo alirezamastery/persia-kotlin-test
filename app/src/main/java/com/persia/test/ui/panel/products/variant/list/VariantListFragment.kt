@@ -40,7 +40,7 @@ class VariantListFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
-        epoxyController = VariantListEpoxyController { id: Long -> Timber.i("ok variant $id") }
+        epoxyController = VariantListEpoxyController(context!!) { id: Long -> Timber.i("ok variant $id") }
         binding.variantListEpoxyRecyclerView.setController(epoxyController)
 
         return binding.root
