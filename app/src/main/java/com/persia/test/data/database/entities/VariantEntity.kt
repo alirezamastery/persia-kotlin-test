@@ -19,8 +19,10 @@ data class VariantEntity(
     val isActive: Boolean,
     val hasCompetition: Boolean,
 
-    // val product: Long,
-    // val productId: Long,
+    // when dealing with nested objects you can either use Embedded which
+    // flattens the object and adds its fields as columns, or use TypeConverter.
+    // when using TypeConverter, you should also create converters for the nested
+    // object inside the object
     @Embedded(prefix = "product_")
     val productEntity: ProductEntity,
     @Embedded(prefix = "selector_")
