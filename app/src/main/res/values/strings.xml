@@ -36,6 +36,7 @@
     <string name="login_failed">خطا در ورود</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
+    <string name="submit">ثبت</string>
     <string name="about_us">درباره ما</string>
     <string name="profile">پروفایل</string>
     <string name="product_section">محصولات</string>

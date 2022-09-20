@@ -12,21 +12,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/variant"
             android:layout_marginBottom="16dp"
+            android:text="@string/variant"
             android:textSize="30sp" />
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            style="@style/DetailFieldLayout"-->
-<!--            android:hint="@string/product">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            style="@style/DetailFieldLayout"-->
+        <!--            android:hint="@string/product">-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/variantProductEditText"-->
-<!--                style="@style/DetailFieldEditText"-->
-<!--                android:ems="10"-->
-<!--                android:importantForAutofill="no"-->
-<!--                android:inputType="text" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <EditText-->
+        <!--                android:id="@+id/variantProductEditText"-->
+        <!--                style="@style/DetailFieldEditText"-->
+        <!--                android:ems="10"-->
+        <!--                android:importantForAutofill="no"-->
+        <!--                android:inputType="text" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -38,7 +38,7 @@
                 style="@style/DetailFieldEditText"
                 android:ems="10"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,8 +51,24 @@
                 style="@style/DetailFieldEditText"
                 android:ems="10"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="number"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/variantDetailSubmitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="@string/submit" />
+        </LinearLayout>
+
     </LinearLayout>
 </layout>

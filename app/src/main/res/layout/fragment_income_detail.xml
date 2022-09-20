@@ -7,7 +7,7 @@
 
         <variable
             name="income"
-            type="com.persia.test.data.domain.models.Income" />
+            type="com.persia.test.domain.models.Income" />
     </data>
 
     <LinearLayout
