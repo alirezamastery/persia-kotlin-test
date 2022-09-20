@@ -23,4 +23,26 @@
     <style name="ListHeaderCell">
         <item name="android:textSize">24sp</item>
     </style>
+
+    <style name="ListItemRow">
+        <item name="android:padding">4dp</item>
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ListItemName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.4</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ListItemValue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.6</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

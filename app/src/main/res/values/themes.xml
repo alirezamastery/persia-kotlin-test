@@ -13,7 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/samim_font_family</item>
-    </style>z
+    </style>
+    z
 
     <style name="ListHeader">
         <item name="android:layout_marginBottom">4dp</item>
@@ -31,17 +32,31 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="ListItemName">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">0.4</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="ListItemValue">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">0.6</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DetailFieldLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="DetailFieldEditText">
+        <item name="android:textDirection">rtl</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

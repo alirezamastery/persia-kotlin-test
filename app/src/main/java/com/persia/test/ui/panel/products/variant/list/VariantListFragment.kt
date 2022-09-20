@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.persia.test.R
@@ -40,7 +41,10 @@ class VariantListFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
-        epoxyController = VariantListEpoxyController(context!!) { id: Long -> Timber.i("ok variant $id") }
+        epoxyController = VariantListEpoxyController(
+            context = context!!,
+            clickListener = ::onVariantSelected
+        )
         binding.variantListEpoxyRecyclerView.setController(epoxyController)
 
         return binding.root
@@ -53,6 +57,14 @@ class VariantListFragment : Fragment() {
                 epoxyController.submitData(pagingData = pagingData)
             }
         }
+    }
+
+    private fun onVariantSelected(variantId: Long) {
+        val directions =
+            VariantListFragmentDirections.actionVariantListFragmentToVariantDetailFragment(
+                variantId = variantId
+            )
+        findNavController().navigate(directions)
     }
 
 }

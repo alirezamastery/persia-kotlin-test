@@ -87,7 +87,11 @@
         android:id="@+id/variantDetailFragment"
         android:name="com.persia.test.ui.panel.products.variant.detail.VariantDetailFragment"
         android:label="fragment_variant_detail"
-        tools:layout="@layout/fragment_variant_detail" />
+        tools:layout="@layout/fragment_variant_detail" >
+        <argument
+            android:name="variantId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/costListFragment"
         android:name="com.persia.test.ui.panel.accounting.cost.CostListFragment"
