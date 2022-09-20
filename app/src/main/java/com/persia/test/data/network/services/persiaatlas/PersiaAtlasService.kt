@@ -1,6 +1,5 @@
 package com.persia.test.data.network.services.persiaatlas
 
-import com.persia.test.data.domain.models.Income
 import com.persia.test.data.network.services.persiaatlas.responses.*
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import kotlinx.coroutines.Deferred

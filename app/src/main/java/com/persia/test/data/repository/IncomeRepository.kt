@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import com.persia.test.global.Constants.Companion.PAGE_SIZE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.IncomeEntity
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.asDatabaseModel
 import com.persia.test.ui.panel.accounting.income.IncomeRemoteMediator

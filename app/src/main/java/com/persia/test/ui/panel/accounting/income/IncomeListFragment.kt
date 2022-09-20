@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.persia.test.R
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 import com.persia.test.databinding.FragmentIncomeListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

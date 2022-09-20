@@ -4,14 +4,12 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import calendar.PersianDate
 import com.airbnb.epoxy.EpoxyModel
-import com.airbnb.epoxy.TypedEpoxyController
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.persia.test.R
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 import com.persia.test.databinding.IncomeListHeaderBinding
 import com.persia.test.databinding.ListItemIncomeBinding
 import com.persia.test.epoxy.ViewBindingKotlinModel
-import timber.log.Timber
 import java.time.OffsetDateTime
 
 class IncomeListEpoxyController(

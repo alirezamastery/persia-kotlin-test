@@ -1,4 +1,4 @@
-package com.persia.test.data.domain.models
+package com.persia.test.domain.models
 
 data class Variant(
     val id: Long,

@@ -1,7 +1,7 @@
 package com.persia.test.data.network.services.persiaatlas.responses.variant
 
 import com.persia.test.data.database.entities.*
-import com.persia.test.data.domain.models.Variant
+import com.persia.test.domain.models.Variant
 
 
 data class VariantResponse(

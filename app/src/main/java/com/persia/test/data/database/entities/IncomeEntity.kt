@@ -2,7 +2,7 @@ package com.persia.test.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 
 
 @Entity(tableName = "income")

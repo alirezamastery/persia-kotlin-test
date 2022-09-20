@@ -3,7 +3,7 @@ package com.persia.test.data.database
 import androidx.room.TypeConverter
 import com.persia.test.data.database.entities.ActualProductEntity
 import com.persia.test.data.database.entities.BrandEntity
-import com.persia.test.data.domain.models.Variant
+import com.persia.test.domain.models.Variant
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.*

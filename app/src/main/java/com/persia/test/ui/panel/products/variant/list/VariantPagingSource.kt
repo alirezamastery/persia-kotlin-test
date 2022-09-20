@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.persia.test.global.Constants.Companion.PAGE_SIZE
-import com.persia.test.data.domain.models.Variant
+import com.persia.test.domain.models.Variant
 import com.persia.test.data.network.PersiaAtlasApiClient
 import timber.log.Timber
 

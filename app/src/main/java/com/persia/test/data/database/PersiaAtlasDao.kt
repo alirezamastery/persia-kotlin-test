@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.persia.test.data.database.entities.IncomeEntity
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 
 @Dao
 interface PersiaAtlasDao {

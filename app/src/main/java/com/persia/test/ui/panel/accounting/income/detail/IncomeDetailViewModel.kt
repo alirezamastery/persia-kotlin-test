@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.persia.test.data.domain.models.Income
+import com.persia.test.domain.models.Income
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.asDomainModel
-import com.persia.test.data.repository.IncomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
