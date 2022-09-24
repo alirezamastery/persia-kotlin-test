@@ -1,8 +1,10 @@
 package com.persia.test.data.network.services.persiaatlas
 
 import com.persia.test.data.network.services.persiaatlas.responses.*
+import com.persia.test.data.network.services.persiaatlas.responses.product.ProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import kotlinx.coroutines.Deferred
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -19,7 +21,8 @@ interface PersiaAtlasService {
     @GET("/api/users/profile/")
     suspend fun getUserProfile(): Response<UserProfileResponse>
 
-
+    // #################### Accounting API ####################
+    // ********** Income **********
     @GET("/api/accounting/incomes/")
     fun getIncomesAsync(): Deferred<PaginatedResponse<IncomeResponse>>
 
@@ -32,7 +35,8 @@ interface PersiaAtlasService {
     @GET("/api/accounting/incomes/{income-id}/")
     suspend fun getIncomeById(@Path("income-id") incomeId: Long): Response<IncomeResponse>
 
-
+    // #################### Products API ####################
+    // ********** Variant **********
     @GET("/api/products/variants/")
     suspend fun getVariantList(
         @Query("page") pageNumber: Int,
@@ -41,4 +45,19 @@ interface PersiaAtlasService {
 
     @GET("/api/products/variants/{variant-id}/")
     suspend fun getVariantById(@Path("variant-id") variantId: Long): Response<VariantResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/products/variants/")
+    suspend fun createVariant(@Body data: JSONObject): Response<JSONObject>
+
+    // ********** Product **********
+    @GET("/api/products/products/")
+    suspend fun getProductList(
+        @Query("page") pageNumber: Int,
+        @Query("page_size") pageSize: Int
+    ): Response<PaginatedResponse<ProductResponse>>
+
+    @GET("/api/products/products/{product-id}/")
+    suspend fun getProductById(@Path("product-id") productId: Long): Response<ProductResponse>
+
 }

@@ -3,7 +3,9 @@ package com.persia.test.data.network
 import com.persia.test.data.network.services.persiaatlas.PaginatedResponse
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import com.persia.test.data.network.services.persiaatlas.responses.*
+import com.persia.test.data.network.services.persiaatlas.responses.product.ProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
+import org.json.JSONObject
 import retrofit2.Response
 
 class PersiaAtlasApiClient(
@@ -58,4 +60,19 @@ class PersiaAtlasApiClient(
         return safeApiCall { persiaAtlasService.getVariantById(variantId) }
     }
 
+    suspend fun createVariant(data: JSONObject): CustomResponse<JSONObject> {
+        return safeApiCall { persiaAtlasService.createVariant(data) }
+    }
+
+    // ********** Product **********
+    suspend fun getProductList(
+        pageNumber: Int,
+        pageSize: Int
+    ): CustomResponse<PaginatedResponse<ProductResponse>> {
+        return safeApiCall { persiaAtlasService.getProductList(pageNumber, pageSize) }
+    }
+
+    suspend fun getProductById(productId: Long): CustomResponse<ProductResponse> {
+        return safeApiCall { persiaAtlasService.getProductById(productId) }
+    }
 }

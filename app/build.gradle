@@ -112,4 +112,8 @@ dependencies {
 
     // PersianDate
     implementation 'com.github.dariushm2:PersianCaldroid:1.0.1'
+
+
+    // Serialization utility
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
 }

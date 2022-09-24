@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.persia.test.data.network.services.JSONObjectAdapter
 import com.persia.test.global.Constants
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import dagger.Module
@@ -49,6 +50,7 @@ object NetworkLayer {
     fun providesMoshi(): Moshi {
         return Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
+            .add(JSONObjectAdapter())
             .build()
     }
 

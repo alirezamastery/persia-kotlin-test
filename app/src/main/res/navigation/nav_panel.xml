@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.persia.test.ui.panel.products.product.detail.ProductDetailFragment"
-        android:label="fragment_product_detail"
+        android:label="@string/variant"
         tools:layout="@layout/fragment_product_detail" />
     <fragment
         android:id="@+id/variantListFragment"
@@ -86,11 +86,12 @@
     <fragment
         android:id="@+id/variantDetailFragment"
         android:name="com.persia.test.ui.panel.products.variant.detail.VariantDetailFragment"
-        android:label="fragment_variant_detail"
+        android:label="@string/variant"
         tools:layout="@layout/fragment_variant_detail" >
         <argument
             android:name="variantId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
         android:id="@+id/costListFragment"

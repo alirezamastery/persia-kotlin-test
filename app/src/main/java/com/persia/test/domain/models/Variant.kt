@@ -8,11 +8,11 @@ data class Variant(
     val isActive: Boolean,
     val hasCompetition: Boolean,
     val product: Product,
-    // val selector: VariantSelector,
-    // val actualProduct: ActualProduct
+    val selector: VariantSelector,
+    val actualProduct: ActualProduct?
     // val product: Long,
-    val selector: Long,
-    val actualProduct: Long?,
+    // val selector: Long,
+    // val actualProduct: Long?,
 ) {
 
     data class Product(
@@ -20,8 +20,8 @@ data class Variant(
         val dkp: String,
         val title: String,
         val isActive: Boolean,
-        // val type: ProductType
-        val type: Long
+        val type: ProductType
+        // val type: Long
     )
 
     data class ProductType(
@@ -34,11 +34,23 @@ data class Variant(
         val id: Long,
         val digikalaId: Long,
         val value: String,
-        val extraInfo: String,
+        val extraInfo: String?,
         val type: VariantSelectorType
     )
 
     data class VariantSelectorType(
+        val id: Long,
+        val title: String
+    )
+
+    data class ActualProduct(
+        val id: Long,
+        val title: String,
+        val priceStep: Long,
+        val brand: Brand
+    )
+
+    data class Brand(
         val id: Long,
         val title: String
     )

@@ -1,7 +1,10 @@
 package com.persia.test.data.network.services.persiaatlas.responses.variant
 
+import com.squareup.moshi.Json
+
 data class ProductType(
     val id: Long,
-    val selector_type: Long,
-    val title: String
+    val title: String,
+    @Json(name = "selector_type")
+    val selectorTypeId: Long,
 )

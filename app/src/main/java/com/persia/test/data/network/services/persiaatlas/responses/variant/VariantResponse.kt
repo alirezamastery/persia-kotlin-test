@@ -24,16 +24,38 @@ data class VariantResponse(
             stopLoss = stop_loss,
             isActive = is_active,
             hasCompetition = has_competition,
-            // product = product.id,
             product = Variant.Product(
                 id = product.id,
                 dkp = product.dkp,
                 title = product.title,
                 isActive = product.is_active,
-                type = product.type.id
+                type = Variant.ProductType(
+                    id = product.type.id,
+                    title = product.type.title,
+                    selectorTypeId = product.type.selectorTypeId
+                )
             ),
-            selector = selector.id,
-            actualProduct = actual_product?.id
+            selector = Variant.VariantSelector(
+                id = selector.id,
+                digikalaId = selector.digikala_id,
+                value = selector.value,
+                extraInfo = selector.extra_info,
+                type = Variant.VariantSelectorType(
+                    id = selector.selector_type.id,
+                    title = selector.selector_type.title
+                )
+            ),
+            actualProduct = actual_product?.let { ap ->
+                Variant.ActualProduct(
+                    id = ap.id,
+                    title = ap.title,
+                    priceStep = ap.price_step,
+                    brand = Variant.Brand(
+                        id = ap.brand.id,
+                        title = ap.brand.title
+                    )
+                )
+            }
         )
     }
 

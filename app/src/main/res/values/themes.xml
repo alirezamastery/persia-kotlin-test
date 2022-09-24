@@ -14,7 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/samim_font_family</item>
     </style>
-    z
 
     <style name="ListHeader">
         <item name="android:layout_marginBottom">4dp</item>
@@ -58,5 +57,11 @@
         <item name="android:textDirection">rtl</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="DetailFieldAutoComplete" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 </resources>

@@ -6,18 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.collection.arraySetOf
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.persia.test.R
 import com.persia.test.databinding.FragmentVariantDetailBinding
+import com.persia.test.ui.panel.accounting.income.detail.IncomeDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
+import timber.log.Timber
 
 
 @AndroidEntryPoint
 class VariantDetailFragment : Fragment() {
 
     private val viewModel: VariantDetailViewModel by viewModels()
+    private val safeArgs: VariantDetailFragmentArgs by navArgs()
 
     private lateinit var _binding: FragmentVariantDetailBinding
     private val binding get() = _binding
@@ -31,23 +39,51 @@ class VariantDetailFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
+        val products = listOf("سامو", "جعبه 16 اینچ", "سلطل 40 لیتر", "کارا", "14 اینچ", "18 اینچ")
+        val productArrayAdapter = ArrayAdapter(
+            requireContext(), R.layout.product_input_dropdown_item, products
+        )
+        binding.variantProductInput.setAdapter(productArrayAdapter)
+        binding.variantProductInput.doOnTextChanged { text, start, before, count ->
+            Timber.i("tes auto: $text")
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
+        setupObservers()
     }
 
     private fun setupListeners() {
-        binding.variantDKPCEditText.doOnTextChanged { text, start, before, count ->
+        binding.variantDKPCInput.doOnTextChanged { text, start, before, count ->
             viewModel.onEvent(VariantAddEditFormEvent.DkpcChanged(text.toString().toLong()))
         }
-        binding.variantPriceMinEditText.doOnTextChanged { text, start, before, count ->
+        binding.variantPriceMinInput.doOnTextChanged { text, start, before, count ->
             viewModel.onEvent(VariantAddEditFormEvent.PriceMinChanged(text.toString().toLong()))
         }
         binding.variantDetailSubmitButton.setOnClickListener {
             viewModel.onEvent(VariantAddEditFormEvent.Submit)
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.getVariantDetail(safeArgs.variantId)
+        viewModel.apiError.observe(viewLifecycleOwner) { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+        }
+        viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
+            variant?.let {
+                binding.variantAddEditPageTitle.text = "تغییر تنوع ${variant.dkpc}"
+                binding.variantProductInput.setText(variant.product.title)
+                binding.variantActualProductInput.setText(variant.actualProduct?.title)
+                binding.variantSelectorInput.setText(variant.selector.value)
+                binding.variantDKPCInput.setText(variant.dkpc.toString())
+                binding.variantPriceMinInput.setText(variant.priceMin.toString())
+                binding.variantDetailIsActive.isChecked = variant.isActive
+            }
         }
     }
 
