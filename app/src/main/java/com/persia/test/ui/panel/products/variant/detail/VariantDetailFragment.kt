@@ -1,6 +1,6 @@
 package com.persia.test.ui.panel.products.variant.detail
 
-import androidx.lifecycle.ViewModelProvider
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.collection.arraySetOf
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.persia.test.R
 import com.persia.test.databinding.FragmentVariantDetailBinding
-import com.persia.test.ui.panel.accounting.income.detail.IncomeDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 import timber.log.Timber
 
 
@@ -73,6 +70,17 @@ class VariantDetailFragment : Fragment() {
         viewModel.getVariantDetail(safeArgs.variantId)
         viewModel.apiError.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            isLoading?.let {
+                if (isLoading == true) {
+                    binding.variantDetailForm.visibility = View.GONE
+                    binding.variantDetailLoading.visibility = View.VISIBLE
+                } else {
+                    binding.variantDetailForm.visibility = View.VISIBLE
+                    binding.variantDetailLoading.visibility = View.GONE
+                }
+            }
         }
         viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
             variant?.let {

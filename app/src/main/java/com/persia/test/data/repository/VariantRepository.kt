@@ -1,5 +1,6 @@
 package com.persia.test.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,6 +10,7 @@ import com.persia.test.global.Constants.Companion.PREFETCH_DISTANCE
 import com.persia.test.data.database.PersiaAtlasDatabase
 import com.persia.test.data.database.entities.VariantEntity
 import com.persia.test.data.network.PersiaAtlasApiClient
+import com.persia.test.domain.models.Variant
 import com.persia.test.ui.panel.products.variant.list.VariantPagingSource
 import com.persia.test.ui.panel.products.variant.list.VariantRemoteMediator
 import kotlinx.coroutines.flow.Flow
@@ -34,4 +36,8 @@ class VariantRepository @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
+
+    // fun getVariantBuId(): LiveData<Variant> {
+    //
+    // }
 }

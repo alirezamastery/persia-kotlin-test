@@ -6,106 +6,124 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".ui.panel.products.variant.detail.VariantDetailFragment">
-
-        <TextView
-            android:id="@+id/variantAddEditPageTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            tools:text="@string/variant"
-            android:textSize="30sp" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/DetailFieldAutoComplete"
-
-            android:hint="@string/product">
-
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/variantProductInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/DetailFieldAutoComplete"
-            android:hint="@string/actual_product">
-
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/variantActualProductInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/DetailFieldAutoComplete"
-            android:hint="@string/selector">
-
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/variantSelectorInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/DetailFieldLayout"
-            android:hint="@string/dkpc">
-
-            <EditText
-                android:id="@+id/variantDKPCInput"
-                style="@style/DetailFieldEditText"
-                android:ems="10"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                tools:ignore="LabelFor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/DetailFieldLayout"
-            android:hint="@string/priceMinRial">
-
-            <EditText
-                android:id="@+id/variantPriceMinInput"
-                style="@style/DetailFieldEditText"
-                android:ems="10"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                tools:ignore="LabelFor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+        android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/variantDetailForm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.panel.products.variant.detail.VariantDetailFragment">
 
-            <CheckBox
-                android:id="@+id/variantDetailIsActive"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/variantAddEditPageTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/isActive" />
+                android:layout_marginBottom="16dp"
+                android:textSize="30sp"
+                tools:text="@string/variant" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/DetailFieldAutoComplete"
+
+                android:hint="@string/product">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/variantProductInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/DetailFieldAutoComplete"
+                android:hint="@string/actual_product">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/variantActualProductInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/DetailFieldAutoComplete"
+                android:hint="@string/selector">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/variantSelectorInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/DetailFieldLayout"
+                android:hint="@string/dkpc">
+
+                <EditText
+                    android:id="@+id/variantDKPCInput"
+                    style="@style/DetailFieldEditText"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/DetailFieldLayout"
+                android:hint="@string/priceMinRial">
+
+                <EditText
+                    android:id="@+id/variantPriceMinInput"
+                    style="@style/DetailFieldEditText"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <CheckBox
+                    android:id="@+id/variantDetailIsActive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/isActive" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/variantDetailSubmitButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/submit"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
-
         <LinearLayout
+            android:id="@+id/variantDetailLoading"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <Button
-                android:id="@+id/variantDetailSubmitButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/submit"
-                android:textSize="22sp" />
+            <include layout="@layout/model_loading" />
         </LinearLayout>
 
     </LinearLayout>
+
 </layout>

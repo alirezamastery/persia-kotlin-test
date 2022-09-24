@@ -1,6 +1,5 @@
 package com.persia.test.ui.panel.products.variant.detail
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,17 +12,14 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
 
 
 @HiltViewModel
 class VariantDetailViewModel @Inject constructor(
-    val apiClient: PersiaAtlasApiClient,
-    val validateNonEmptyField: ValidateNonEmptyField
+    private val apiClient: PersiaAtlasApiClient,
+    private val validateNonEmptyField: ValidateNonEmptyField
 ) : ViewModel() {
 
-    // var state = mutableStateOf(VariantAddEditFormState())
     private var _state = MutableLiveData(VariantAddEditFormState())
     val state: LiveData<VariantAddEditFormState>
         get() = _state
@@ -35,6 +31,10 @@ class VariantDetailViewModel @Inject constructor(
     private val _apiError = MutableLiveData<String?>()
     val apiError: LiveData<String?>
         get() = _apiError
+
+    private val _isLoading = MutableLiveData<Boolean?>()
+    val isLoading: LiveData<Boolean?>
+        get() = _isLoading
 
     fun onEvent(event: VariantAddEditFormEvent) {
         when (event) {
@@ -59,15 +59,17 @@ class VariantDetailViewModel @Inject constructor(
         Timber.i("validate result priceMin: $priceMinResult")
     }
 
-    fun getVariantDetail(incomeId: Long) {
+    fun getVariantDetail(incomeId: Long) {    // TODO: get variant detail from repository
         viewModelScope.launch {
             Timber.i("$incomeId")
+            _isLoading.postValue(true)
             val res = apiClient.getVariantById(incomeId)
             Timber.i("variant detail response: ${res.body}")
             if (!res.isSuccessful) {
                 _apiError.postValue("could not get variant data")
             }
             _variantDetail.postValue(res.body.asDomainModel())
+            _isLoading.value = false
         }
     }
 
