@@ -22,16 +22,13 @@ class VariantDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var _state = MutableLiveData(VariantAddEditFormState())
-    val state: LiveData<VariantAddEditFormState>
-        get() = _state
+    val state get() = _state
 
     private val _variantDetail = MutableLiveData<Variant?>()
-    val variantDetail: LiveData<Variant?>
-        get() = _variantDetail
+    val variantDetail get() = _variantDetail
 
     private val _apiError = MutableLiveData<String?>()
-    val apiError: LiveData<String?>
-        get() = _apiError
+    val apiError get() = _apiError
 
     private val _isLoading = MutableLiveData<Boolean?>()
     val isLoading get() = _isLoading
@@ -39,15 +36,23 @@ class VariantDetailViewModel @Inject constructor(
     private val _productList = MutableLiveData<List<Product>>()
     val productList get() = _productList
 
+    private val _variantLoaded = MutableLiveData(false)
+    val variantLoaded get() = _variantLoaded
+
     init {
         getProductList()
     }
 
     fun onEvent(event: VariantAddEditFormEvent) {
         when (event) {
-            is VariantAddEditFormEvent.ProductChanged -> {
+            is VariantAddEditFormEvent.ProductSearchChanged -> {
                 Timber.i("product changed: ${event.searchPhrase}")
                 getProductList(searchPhrase = event.searchPhrase)
+            }
+            is VariantAddEditFormEvent.ProductSelected -> {
+                Timber.i("product selected: ${event.index} ${productList.value?.get(event.index)}")
+                val product = productList.value!![event.index]
+                _state.postValue(state.value?.copy(productId = product.id))
             }
             is VariantAddEditFormEvent.DkpcChanged -> {
                 Timber.i("dkpc changed: ${event.dkpc}")
@@ -102,6 +107,10 @@ class VariantDetailViewModel @Inject constructor(
 
     fun createVariant() {
 
+    }
+
+    fun setVariantLoaded() {
+        _variantLoaded.value = true
     }
 
     fun sendUpdateVariantRequest() {

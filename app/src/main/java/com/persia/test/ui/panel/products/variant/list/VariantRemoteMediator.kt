@@ -23,7 +23,7 @@ class VariantRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, VariantEntity>
     ): MediatorResult {
-        Timber.i("*".repeat(120))
+        // Timber.i("*".repeat(120))
         return try {
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
@@ -53,10 +53,10 @@ class VariantRemoteMediator(
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
-            Timber.i("loadType: $loadType | page size: ${state.pages.size}")
-            Timber.i("currentPage: $currentPage")
-            Timber.i("isEnd: $endOfPaginationReached | prevPage: $prevPage | nextPage: $nextPage")
-            Timber.i("res previous: ${response.body.previous} | res next: ${response.body.next}")
+            // Timber.i("loadType: $loadType | page size: ${state.pages.size}")
+            // Timber.i("currentPage: $currentPage")
+            // Timber.i("isEnd: $endOfPaginationReached | prevPage: $prevPage | nextPage: $nextPage")
+            // Timber.i("res previous: ${response.body.previous} | res next: ${response.body.next}")
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

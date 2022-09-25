@@ -1,6 +1,5 @@
 package com.persia.test.ui.panel.products.variant.detail
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,10 +53,23 @@ class VariantDetailFragment : Fragment() {
 
     private fun setupListeners() {
         binding.variantProductInput.doOnTextChanged { text, start, before, count ->
-            viewModel.onEvent(VariantAddEditFormEvent.ProductChanged(searchPhrase = text.toString()))
+            // Timber.i("value : ${viewModel.variantLoaded.value}")
+            // Timber.i("value : ${viewModel.productList.value}")
+            // if (viewModel.variantLoaded.value == false) {
+            //     Timber.i("7".repeat(100))
+            //     viewModel.setVariantLoaded()
+            // } else {
+            //     Timber.i("8".repeat(120))
+            //     viewModel.onEvent(VariantAddEditFormEvent.ProductSearchChanged(searchPhrase = text.toString()))
+            // }
+            viewModel.onEvent(VariantAddEditFormEvent.ProductSearchChanged(searchPhrase = text.toString()))
+        }
+        binding.variantProductInput.setOnItemClickListener { parent, view, position, id ->
+            binding.variantProductInput.showDropDown()
         }
         binding.variantProductInput.setOnItemClickListener { parent, view, position, id ->
             Timber.i("product clicked: position: $position | id: $id")
+            viewModel.onEvent(VariantAddEditFormEvent.ProductSelected(index = position))
         }
 
         binding.variantDKPCInput.doOnTextChanged { text, start, before, count ->
@@ -78,7 +90,6 @@ class VariantDetailFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.getVariantDetail(safeArgs.variantId)
         viewModel.apiError.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }
@@ -100,17 +111,21 @@ class VariantDetailFragment : Fragment() {
             )
             binding.variantProductInput.setAdapter(productArrayAdapter)
         }
-        viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
-            variant?.let {
-                binding.variantAddEditPageTitle.text = "تغییر تنوع ${variant.dkpc}"
-                binding.variantProductInput.setText(variant.product.title)
-                binding.variantActualProductInput.setText(variant.actualProduct?.title)
-                binding.variantSelectorInput.setText(variant.selector.value)
-                binding.variantDKPCInput.setText(variant.dkpc.toString())
-                binding.variantPriceMinInput.setText(variant.priceMin.toString())
-                binding.variantDetailIsActive.isChecked = variant.isActive
+        if (safeArgs.variantId > 0) {
+            viewModel.getVariantDetail(safeArgs.variantId)
+            viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
+                variant?.let {
+                    binding.variantAddEditPageTitle.text = "تغییر تنوع ${variant.dkpc}"
+                    binding.variantProductInput.setText(variant.product.title)
+                    binding.variantActualProductInput.setText(variant.actualProduct?.title)
+                    binding.variantSelectorInput.setText(variant.selector.value)
+                    binding.variantDKPCInput.setText(variant.dkpc.toString())
+                    binding.variantPriceMinInput.setText(variant.priceMin.toString())
+                    binding.variantDetailIsActive.isChecked = variant.isActive
+                }
             }
         }
+
     }
 
 }
