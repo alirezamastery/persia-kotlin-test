@@ -81,7 +81,11 @@
         tools:layout="@layout/fragment_variant_list">
         <action
             android:id="@+id/action_variantListFragment_to_variantDetailFragment"
-            app:destination="@id/variantDetailFragment" />
+            app:destination="@id/variantDetailFragment"
+            app:enterAnim="@anim/slide_in_from_left"
+            app:exitAnim="@anim/slide_out_to_right"
+            app:popEnterAnim="@anim/slide_in_from_right"
+            app:popExitAnim="@anim/slide_out_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/variantDetailFragment"

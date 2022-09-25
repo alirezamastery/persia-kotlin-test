@@ -53,8 +53,11 @@ interface PersiaAtlasService {
     // ********** Product **********
     @GET("/api/products/products/")
     suspend fun getProductList(
-        @Query("page") pageNumber: Int,
-        @Query("page_size") pageSize: Int
+        @Query("page") pageNumber: Int?,
+        @Query("page_size") pageSize: Int?,
+        @Query("search") searchPhrase: String?,
+        @Query("is_active") isActive: Boolean?,
+        @Query("price_step") priceStep: Long?,
     ): Response<PaginatedResponse<ProductResponse>>
 
     @GET("/api/products/products/{product-id}/")

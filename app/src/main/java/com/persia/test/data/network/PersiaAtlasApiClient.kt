@@ -7,6 +7,7 @@ import com.persia.test.data.network.services.persiaatlas.responses.product.Produ
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import org.json.JSONObject
 import retrofit2.Response
+import retrofit2.http.Query
 
 class PersiaAtlasApiClient(
     private val persiaAtlasService: PersiaAtlasService
@@ -66,10 +67,17 @@ class PersiaAtlasApiClient(
 
     // ********** Product **********
     suspend fun getProductList(
-        pageNumber: Int,
-        pageSize: Int
+        pageNumber: Int? = null,
+        pageSize: Int? = null,
+        searchPhrase: String? = null,
+        isActive: Boolean? = null,
+        priceStep: Long? = null,
     ): CustomResponse<PaginatedResponse<ProductResponse>> {
-        return safeApiCall { persiaAtlasService.getProductList(pageNumber, pageSize) }
+        return safeApiCall {
+            persiaAtlasService.getProductList(
+                pageNumber, pageSize, searchPhrase, isActive, priceStep
+            )
+        }
     }
 
     suspend fun getProductById(productId: Long): CustomResponse<ProductResponse> {

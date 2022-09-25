@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.persia.test.data.network.PersiaAtlasApiClient
+import com.persia.test.domain.models.Product
 import com.persia.test.domain.models.Variant
 import com.persia.test.domain.use_case.validation.ValidateNonEmptyField
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,13 +34,23 @@ class VariantDetailViewModel @Inject constructor(
         get() = _apiError
 
     private val _isLoading = MutableLiveData<Boolean?>()
-    val isLoading: LiveData<Boolean?>
-        get() = _isLoading
+    val isLoading get() = _isLoading
+
+    private val _productList = MutableLiveData<List<Product>>()
+    val productList get() = _productList
+
+    init {
+        getProductList()
+    }
 
     fun onEvent(event: VariantAddEditFormEvent) {
         when (event) {
+            is VariantAddEditFormEvent.ProductChanged -> {
+                Timber.i("product changed: ${event.searchPhrase}")
+                getProductList(searchPhrase = event.searchPhrase)
+            }
             is VariantAddEditFormEvent.DkpcChanged -> {
-                Timber.i("dkpc changed")
+                Timber.i("dkpc changed: ${event.dkpc}")
                 _state.postValue(state.value?.copy(dkpc = event.dkpc))
             }
             is VariantAddEditFormEvent.PriceMinChanged -> {
@@ -52,7 +63,7 @@ class VariantDetailViewModel @Inject constructor(
     }
 
     private fun submitForm() {
-        Timber.i("submited")
+        Timber.i("submitted")
         val dkpcResult = validateNonEmptyField(state.value?.dkpc)
         val priceMinResult = validateNonEmptyField(state.value?.priceMin)
         Timber.i("validate result dkpc: $dkpcResult")
@@ -67,9 +78,25 @@ class VariantDetailViewModel @Inject constructor(
             Timber.i("variant detail response: ${res.body}")
             if (!res.isSuccessful) {
                 _apiError.postValue("could not get variant data")
+            } else {
+                _variantDetail.postValue(res.body.asDomainModel())
+                _isLoading.value = false
             }
-            _variantDetail.postValue(res.body.asDomainModel())
-            _isLoading.value = false
+        }
+    }
+
+    private fun getProductList(searchPhrase: String? = null) {
+        viewModelScope.launch {
+            val res = apiClient.getProductList(searchPhrase = searchPhrase)
+            Timber.i("product list: ${res.body}")
+            if (!res.isSuccessful) {
+                _apiError.postValue("Could not get product list")
+            } else {
+                val domainProducts = res.body.items.map { productResponse ->
+                    productResponse.asDomainModel()
+                }
+                _productList.postValue(domainProducts)
+            }
         }
     }
 
@@ -77,7 +104,7 @@ class VariantDetailViewModel @Inject constructor(
 
     }
 
-    fun updateVariant() {
+    fun sendUpdateVariantRequest() {
         val data = HashMap<String, Any>()
         data["id"] = 456
         data["title"] = "testing"

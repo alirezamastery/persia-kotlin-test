@@ -27,6 +27,8 @@ class VariantDetailFragment : Fragment() {
     private lateinit var _binding: FragmentVariantDetailBinding
     private val binding get() = _binding
 
+    private var products: List<String> = listOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,14 +38,10 @@ class VariantDetailFragment : Fragment() {
         )
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val products = listOf("سامو", "جعبه 16 اینچ", "سلطل 40 لیتر", "کارا", "14 اینچ", "18 اینچ")
-        val productArrayAdapter = ArrayAdapter(
-            requireContext(), R.layout.product_input_dropdown_item, products
-        )
-        binding.variantProductInput.setAdapter(productArrayAdapter)
-        binding.variantProductInput.doOnTextChanged { text, start, before, count ->
-            Timber.i("tes auto: $text")
-        }
+        // val productArrayAdapter = ArrayAdapter(
+        //     requireContext(), R.layout.product_input_dropdown_item, products
+        // )
+        // binding.variantProductInput.setAdapter(productArrayAdapter)
 
         return binding.root
     }
@@ -55,11 +53,24 @@ class VariantDetailFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        binding.variantProductInput.doOnTextChanged { text, start, before, count ->
+            viewModel.onEvent(VariantAddEditFormEvent.ProductChanged(searchPhrase = text.toString()))
+        }
+        binding.variantProductInput.setOnItemClickListener { parent, view, position, id ->
+            Timber.i("product clicked: position: $position | id: $id")
+        }
+
         binding.variantDKPCInput.doOnTextChanged { text, start, before, count ->
-            viewModel.onEvent(VariantAddEditFormEvent.DkpcChanged(text.toString().toLong()))
+            viewModel.onEvent(
+                VariantAddEditFormEvent.DkpcChanged(dkpc = text.toString().toLong())
+            )
         }
         binding.variantPriceMinInput.doOnTextChanged { text, start, before, count ->
-            viewModel.onEvent(VariantAddEditFormEvent.PriceMinChanged(text.toString().toLong()))
+            viewModel.onEvent(
+                VariantAddEditFormEvent.PriceMinChanged(
+                    priceMin = text.toString().toLong()
+                )
+            )
         }
         binding.variantDetailSubmitButton.setOnClickListener {
             viewModel.onEvent(VariantAddEditFormEvent.Submit)
@@ -81,6 +92,13 @@ class VariantDetailFragment : Fragment() {
                     binding.variantDetailLoading.visibility = View.GONE
                 }
             }
+        }
+        viewModel.productList.observe(viewLifecycleOwner) { productList ->
+            products = productList.map { product -> product.title }
+            val productArrayAdapter = ArrayAdapter(
+                requireContext(), R.layout.product_input_dropdown_item, products
+            )
+            binding.variantProductInput.setAdapter(productArrayAdapter)
         }
         viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
             variant?.let {

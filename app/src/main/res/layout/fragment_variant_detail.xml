@@ -26,13 +26,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/DetailFieldAutoComplete"
-
                 android:hint="@string/product">
 
                 <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/variantProductInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_cancel_24_gray"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
