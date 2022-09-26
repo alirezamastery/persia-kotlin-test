@@ -1,6 +1,5 @@
 package com.persia.test.ui.panel.products.variant.detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,6 +38,12 @@ class VariantDetailViewModel @Inject constructor(
     private val _variantLoaded = MutableLiveData(false)
     val variantLoaded get() = _variantLoaded
 
+    private val _isEditPage = MutableLiveData(false)
+    val isEditPage get() = _isEditPage
+
+    private val _skipProductSearch = MutableLiveData<Boolean?>(null)
+    val skipProductSearch get() = _skipProductSearch
+
     init {
         getProductList()
     }
@@ -46,6 +51,10 @@ class VariantDetailViewModel @Inject constructor(
     fun onEvent(event: VariantAddEditFormEvent) {
         when (event) {
             is VariantAddEditFormEvent.ProductSearchChanged -> {
+                if (_skipProductSearch.value == true) {
+                    _skipProductSearch.value = false
+                    return
+                }
                 Timber.i("product changed: ${event.searchPhrase}")
                 getProductList(searchPhrase = event.searchPhrase)
             }
@@ -91,6 +100,10 @@ class VariantDetailViewModel @Inject constructor(
     }
 
     private fun getProductList(searchPhrase: String? = null) {
+        // if (_isEditPage.value == true) {
+        //     _isEditPage.value = false
+        //     return
+        // }
         viewModelScope.launch {
             val res = apiClient.getProductList(searchPhrase = searchPhrase)
             Timber.i("product list: ${res.body}")
@@ -111,6 +124,14 @@ class VariantDetailViewModel @Inject constructor(
 
     fun setVariantLoaded() {
         _variantLoaded.value = true
+    }
+
+    fun setIsEditPage(value: Boolean) {
+        _variantLoaded.value = value
+    }
+
+    fun setSkipProductSearch(value: Boolean?) {
+        _skipProductSearch.value = value
     }
 
     fun sendUpdateVariantRequest() {

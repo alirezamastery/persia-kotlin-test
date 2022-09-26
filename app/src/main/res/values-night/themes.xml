@@ -46,7 +46,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="DetailFieldLayout">
+    <style name="DetailFieldLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">8dp</item>
@@ -58,7 +58,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="DetailFieldAutoComplete" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+    <style name="DetailFieldAutoComplete" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">8dp</item>

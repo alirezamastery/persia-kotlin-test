@@ -20,19 +20,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 tools:text="@string/variant" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/DetailFieldAutoComplete"
-                android:hint="@string/product">
+                android:hint="@string/product"
+                android:layoutDirection="rtl">
 
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                <com.persia.test.tools.ui.CustomAutoComplete
                     android:id="@+id/variantProductInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true" />
+                    android:drawableStart="@drawable/ic_baseline_cancel_24_gray"
+                    android:focusable="true"
+                    android:drawablePadding="8dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

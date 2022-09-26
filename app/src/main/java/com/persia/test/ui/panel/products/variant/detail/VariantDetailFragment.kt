@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.persia.test.R
 import com.persia.test.databinding.FragmentVariantDetailBinding
+import com.persia.test.tools.ui.CustomArrayAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -47,27 +48,42 @@ class VariantDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handleIsEditPage()
         setupListeners()
         setupObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+        handleIsEditPage()
+    }
+
+    private fun handleIsEditPage() {
+        if (safeArgs.variantId > 0) {
+            viewModel.setIsEditPage(true)
+        } else {
+            viewModel.setIsEditPage(false)
+        }
+    }
+
     private fun setupListeners() {
         binding.variantProductInput.doOnTextChanged { text, start, before, count ->
-            // Timber.i("value : ${viewModel.variantLoaded.value}")
-            // Timber.i("value : ${viewModel.productList.value}")
-            // if (viewModel.variantLoaded.value == false) {
-            //     Timber.i("7".repeat(100))
-            //     viewModel.setVariantLoaded()
-            // } else {
-            //     Timber.i("8".repeat(120))
-            //     viewModel.onEvent(VariantAddEditFormEvent.ProductSearchChanged(searchPhrase = text.toString()))
-            // }
-            viewModel.onEvent(VariantAddEditFormEvent.ProductSearchChanged(searchPhrase = text.toString()))
+            if (text.toString() != viewModel.variantDetail.value?.product?.title) {
+                viewModel.onEvent(VariantAddEditFormEvent.ProductSearchChanged(searchPhrase = text.toString()))
+            }
         }
+        // binding.variantProductInput.setOnTouchListener { v, event ->
+        //     Timber.i("V: ${binding.variantProductInput.compoundDrawablePadding} | event: $event")
+        //     Timber.i("x: ${event.rawX}")
+        //     if (event.action == MotionEvent.ACTION_UP) {
+        //         if (event.rawX >= binding.variantProductInput.right - binding.variantProductInput.compoundDrawablePadding * 2) {
+        //             Timber.i("ggggggggggggg")
+        //         }
+        //     }
+        //     v.performClick()
+        // }
         binding.variantProductInput.setOnItemClickListener { parent, view, position, id ->
-            binding.variantProductInput.showDropDown()
-        }
-        binding.variantProductInput.setOnItemClickListener { parent, view, position, id ->
+            viewModel.setSkipProductSearch(true)
             Timber.i("product clicked: position: $position | id: $id")
             viewModel.onEvent(VariantAddEditFormEvent.ProductSelected(index = position))
         }
@@ -109,14 +125,20 @@ class VariantDetailFragment : Fragment() {
             val productArrayAdapter = ArrayAdapter(
                 requireContext(), R.layout.product_input_dropdown_item, products
             )
-            binding.variantProductInput.setAdapter(productArrayAdapter)
+            val pro = CustomArrayAdapter(
+                requireContext(),
+                R.layout.product_input_dropdown_item,
+                products
+            )
+            Timber.i("new products: $products")
+            binding.variantProductInput.setAdapter(pro)
         }
         if (safeArgs.variantId > 0) {
             viewModel.getVariantDetail(safeArgs.variantId)
             viewModel.variantDetail.observe(viewLifecycleOwner) { variant ->
                 variant?.let {
                     binding.variantAddEditPageTitle.text = "تغییر تنوع ${variant.dkpc}"
-                    binding.variantProductInput.setText(variant.product.title)
+                    binding.variantProductInput.setText(variant.product.title, false)
                     binding.variantActualProductInput.setText(variant.actualProduct?.title)
                     binding.variantSelectorInput.setText(variant.selector.value)
                     binding.variantDKPCInput.setText(variant.dkpc.toString())
