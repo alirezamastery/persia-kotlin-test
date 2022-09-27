@@ -2,8 +2,10 @@ package com.persia.test.domain.use_case.validation
 
 class ValidateNonEmptyNumberField {
 
-    fun execute(value: String): ValidationResult {
-        if (value.isBlank()) {
+    operator fun invoke(value: String?): ValidationResult {
+        println("invoke: $value")
+
+        if (value == null || value.isBlank()) {
             return ValidationResult(false, "this field should not be empty")
         }
         val containsNonDigit = value.any { !it.isDigit() }

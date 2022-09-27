@@ -29,13 +29,13 @@
                 android:hint="@string/product"
                 android:layoutDirection="rtl">
 
-                <com.persia.test.tools.ui.CustomAutoComplete
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/variantProductInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_baseline_cancel_24_gray"
-                    android:focusable="true"
-                    android:drawablePadding="8dp"/>
+                    android:drawablePadding="8dp"
+                    android:focusable="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,6 +73,13 @@
                     android:importantForAutofill="no"
                     android:inputType="number"
                     tools:ignore="LabelFor" />
+
+                <TextView
+                    android:id="@+id/variantDKPCInputError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:visibility="gone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 

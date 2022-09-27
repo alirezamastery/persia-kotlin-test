@@ -1,8 +1,10 @@
 package com.persia.test.data.network.services.persiaatlas
 
 import com.persia.test.data.network.services.persiaatlas.responses.*
+import com.persia.test.data.network.services.persiaatlas.responses.actual_product.ActualProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.product.ProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
+import com.persia.test.data.network.services.persiaatlas.responses.variant_selector.VariantSelectorResponse
 import kotlinx.coroutines.Deferred
 import org.json.JSONObject
 import retrofit2.Response
@@ -50,6 +52,10 @@ interface PersiaAtlasService {
     @POST("/api/products/variants/")
     suspend fun createVariant(@Body data: JSONObject): Response<JSONObject>
 
+    @Headers("Content-Type: application/json")
+    @PATCH("/api/products/variants/{variant-id}")
+    suspend fun updateVariant(@Body data: JSONObject): Response<JSONObject>
+
     // ********** Product **********
     @GET("/api/products/products/")
     suspend fun getProductList(
@@ -63,4 +69,26 @@ interface PersiaAtlasService {
     @GET("/api/products/products/{product-id}/")
     suspend fun getProductById(@Path("product-id") productId: Long): Response<ProductResponse>
 
+    // ********** Actual Product **********
+    @GET("/api/products/actual-products/")
+    suspend fun getActualProductList(
+        @Query("page") pageNumber: Int?,
+        @Query("page_size") pageSize: Int?,
+        @Query("search") searchPhrase: String?,
+    ): Response<PaginatedResponse<ActualProductResponse>>
+
+    @GET("/api/products/actual-products/{actual-product-id}/")
+    suspend fun getActualProductById(@Path("actual-product-id") actualProductId: Long): Response<ActualProductResponse>
+
+    // ********** Selector **********
+    @GET("/api/products/variant-selectors/")
+    suspend fun getVariantSelectorList(
+        @Query("page") pageNumber: Int?,
+        @Query("page_size") pageSize: Int?,
+        @Query("search") searchPhrase: String?,
+        @Query("o") orderBy: String?,
+    ): Response<PaginatedResponse<VariantSelectorResponse>>
+
+    @GET("/api/products/variant-selectors/{selector-id}/")
+    suspend fun getVariantSelectorById(@Path("selector-id") selectorId: Long): Response<VariantSelectorResponse>
 }

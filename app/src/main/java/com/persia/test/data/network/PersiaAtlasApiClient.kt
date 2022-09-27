@@ -3,8 +3,10 @@ package com.persia.test.data.network
 import com.persia.test.data.network.services.persiaatlas.PaginatedResponse
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import com.persia.test.data.network.services.persiaatlas.responses.*
+import com.persia.test.data.network.services.persiaatlas.responses.actual_product.ActualProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.product.ProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
+import com.persia.test.data.network.services.persiaatlas.responses.variant_selector.VariantSelectorResponse
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.Query
@@ -65,6 +67,10 @@ class PersiaAtlasApiClient(
         return safeApiCall { persiaAtlasService.createVariant(data) }
     }
 
+    suspend fun updateVariant(data: JSONObject): CustomResponse<JSONObject> {
+        return safeApiCall { persiaAtlasService.updateVariant(data) }
+    }
+
     // ********** Product **********
     suspend fun getProductList(
         pageNumber: Int? = null,
@@ -82,5 +88,47 @@ class PersiaAtlasApiClient(
 
     suspend fun getProductById(productId: Long): CustomResponse<ProductResponse> {
         return safeApiCall { persiaAtlasService.getProductById(productId) }
+    }
+
+    // ********** Actual Product **********
+    suspend fun getActualProductList(
+        pageNumber: Int? = null,
+        pageSize: Int? = null,
+        searchPhrase: String? = null,
+    ): CustomResponse<PaginatedResponse<ActualProductResponse>> {
+        return safeApiCall {
+            persiaAtlasService.getActualProductList(
+                pageNumber = pageNumber,
+                pageSize = pageSize,
+                searchPhrase = searchPhrase
+            )
+        }
+    }
+
+    suspend fun getActualProductById(actualProductId: Long): CustomResponse<ActualProductResponse> {
+        return safeApiCall { persiaAtlasService.getActualProductById(actualProductId) }
+    }
+
+    // ********** Selector **********
+    suspend fun getVariantSelectorList(
+        pageNumber: Int? = null,
+        pageSize: Int? = null,
+        searchPhrase: String? = null,
+        orderBy: String? = null
+    ): CustomResponse<PaginatedResponse<VariantSelectorResponse>> {
+        return safeApiCall {
+            persiaAtlasService.getVariantSelectorList(
+                pageNumber = pageNumber,
+                pageSize = pageSize,
+                searchPhrase = searchPhrase,
+                orderBy = orderBy
+            )
+        }
+    }
+
+    suspend fun getVariantSelectorById(selectorId: Long): CustomResponse<VariantSelectorResponse> {
+        return safeApiCall {
+            persiaAtlasService.getVariantSelectorById(selectorId)
+        }
     }
 }

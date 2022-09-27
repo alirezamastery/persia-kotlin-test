@@ -19,4 +19,8 @@ class CustomAutoComplete @JvmOverloads constructor(
         Timber.i("perform filter")
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
 }
