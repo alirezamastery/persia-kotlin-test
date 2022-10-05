@@ -146,7 +146,7 @@ class VariantDetailViewModel @Inject constructor(
                     priceMinError = priceMinResult.errorMessage
                 )
             )
-            // return
+            return
         }
         Timber.i("is: ${_isEditPage.value}")
         if (_isEditPage.value == true) {

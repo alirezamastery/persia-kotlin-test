@@ -3,74 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
+    <data>
 
-<!--        <variable-->
-<!--            name="navHeaderViewModel"-->
-<!--            type="com.persiaatlas.ui.viewmodels.NavDrawerHeaderViewModel" />-->
-<!--    </data>-->
+        <variable
+            name="navHeaderViewModel"
+            type="com.persia.test.ui.NavDrawerHeaderViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:paddingHorizontal="8dp"
+        android:paddingTop="24dp">
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="nav header"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp">
 
-        <!--        <ImageView-->
-        <!--            imageUrl="@{navHeaderViewModel.userProfile.avatar}"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="170dp"-->
-        <!--            android:scaleType="centerCrop"-->
-        <!--            android:adjustViewBounds="true"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.498"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/textView2"-->
-        <!--            tools:src="@tools:sample/backgrounds/scenic"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-<!--        <TextView-->
-<!--            android:id="@+id/textView2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{navHeaderViewModel.userProfile.first_name}"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/cardView"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.686"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/cardView"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/cardView"-->
-<!--            android:layout_width="105dp"-->
-<!--            android:layout_height="105dp"-->
-<!--            app:cardBackgroundColor="@color/white"-->
-<!--            app:cardCornerRadius="250dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.1"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        app:cardCornerRadius="50pt">
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                app:cardCornerRadius="250dp">-->
+                        <ImageView
+                            imageUrl="@{navHeaderViewModel.userProfile.avatar}"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="@string/profile"
+                            android:scaleType="centerCrop"
+                            tools:src="@tools:sample/backgrounds/scenic" />
 
-<!--                <ImageView-->
-<!--                    imageUrl="@{navHeaderViewModel.userProfile.avatar}"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    tools:src="@tools:sample/backgrounds/scenic" />-->
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-<!--            </androidx.cardview.widget.CardView>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical">
 
-<!--        </androidx.cardview.widget.CardView>-->
+                    <TextView
+                        style="@style/UsernameNavDrawer"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{navHeaderViewModel.username}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView"
+                        tools:text="@string/profile" />
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{navHeaderViewModel.fullName}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView"
+                        tools:text="@string/profile" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

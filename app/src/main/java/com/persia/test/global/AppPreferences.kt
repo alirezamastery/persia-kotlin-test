@@ -33,12 +33,17 @@ object AppPreferences {
         get() = Key.IS_LOGGED_IN.getBoolean()
         set(value) = Key.IS_LOGGED_IN.setBoolean(value)
 
+    var username: String?
+        get() = Key.USERNAME.getString()
+        set(value) = Key.USERNAME.setString(value)
+
     private enum class Key {
         // TODO step 3: replace these cases with your stored values keys
         TEST_TOKEN,
         ACCESS_TOKEN,
         REFRESH_TOKEN,
-        IS_LOGGED_IN;
+        IS_LOGGED_IN,
+        USERNAME;
 
         fun getBoolean(): Boolean? =
             if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(

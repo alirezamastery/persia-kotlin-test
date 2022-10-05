@@ -10,6 +10,7 @@ buildscript {
         version_glide = "4.13.0"
         version_timber = "4.7.1"
         epoxyVersion = "4.6.4"
+        compose_version = '1.2.1'
     }
 
     repositories {

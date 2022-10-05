@@ -74,6 +74,7 @@ class LoginViewModel : ViewModel() {
                     AppPreferences.accessToken = data.access
                     AppPreferences.refreshToken = data.refresh
                     AppPreferences.isLoggedIn = true
+                    AppPreferences.username = payload.mobile
                 } else
                     Timber.e("response bad | ${response.code()}")
             } catch (e: Exception) {

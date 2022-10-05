@@ -3,6 +3,8 @@ package com.persia.test.ui.panel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import com.persia.test.R
 import com.persia.test.databinding.ActivityPanelBinding
 import com.persia.test.databinding.NavPanelViewHeaderBinding
+import com.persia.test.ui.NavDrawerHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,6 +26,8 @@ class PanelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPanelBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val drawerViewModel: NavDrawerHeaderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,7 @@ class PanelActivity : AppCompatActivity() {
     private fun setupNavDrawer() {
         drawerLayout = binding.panelDrawerLayout
         val navController = this.findNavController(R.id.panelNavHostFragment)
+        setSupportActionBar(binding.panelActionBar)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
@@ -49,10 +55,11 @@ class PanelActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navigationView, navController)
 
         val headerView = binding.navigationView.getHeaderView(0)
-        val navViewHeaderBinding: NavPanelViewHeaderBinding = NavPanelViewHeaderBinding.bind(headerView)
+        val navViewHeaderBinding: NavPanelViewHeaderBinding =
+            NavPanelViewHeaderBinding.bind(headerView)
         // val drawerViewModel = ViewModelProvider(this).get(NavPanelDra::class.java)
-        // navViewHeaderBinding.navHeaderViewModel = drawerViewModel
-        // navViewHeaderBinding.lifecycleOwner = this
+        navViewHeaderBinding.navHeaderViewModel = drawerViewModel
+        navViewHeaderBinding.lifecycleOwner = this
 
     }
 

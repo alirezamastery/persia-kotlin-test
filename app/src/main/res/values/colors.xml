@@ -11,4 +11,13 @@
 
     <color name="red">#FF0000</color>
     <color name="red_dark">#A60000</color>
+
+    <color name="blue_1">#1976d2</color>
+    <color name="blue_1_variant">#1563B1</color>
+    <color name="layout_bg_light">#FFFFFF</color>
+    <color name="layout_fg_light">#000000</color>
+    <color name="layout_bg_dark">#212121</color>
+    <color name="layout_fg_dark">#EFEFEF</color>
+    <color name="content_bg_light">#C1C1C1</color>
+    <color name="content_bg_dark">#121212</color>
 </resources>
