@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.persia.test.R
 import com.persia.test.databinding.FragmentLoginBinding
 import com.persia.test.ui.panel.PanelActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
@@ -58,10 +60,10 @@ class LoginFragment : Fragment() {
                 }
                 btnLogin.isEnabled = loginFormState.isDataValid
                 loginFormState.mobileError?.let {
-                    inputMobile.error = getString(it)
+                    binding.loginFormMobileLayout.error = getString(it)
                 }
                 loginFormState.passwordError?.let {
-                    inputPassword.error = getString(it)
+                    binding.loginFormPasswordLayout.error = getString(it)
                 }
             })
 

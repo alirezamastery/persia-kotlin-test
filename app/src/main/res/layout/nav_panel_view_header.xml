@@ -11,19 +11,21 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/NavDrawerHeaderLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="8dp"
-        android:paddingTop="24dp">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="8dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,12 +60,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/UsernameNavDrawer"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        style="@style/NavDrawerUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{navHeaderViewModel.username}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
@@ -71,10 +73,11 @@
                         tools:text="@string/profile" />
 
                     <TextView
-                        android:textSize="15sp"
+                        style="@style/NavDrawerFullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{navHeaderViewModel.fullName}"
+                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
