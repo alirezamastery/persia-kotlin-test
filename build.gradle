@@ -7,7 +7,7 @@ buildscript {
         version_retrofit = "2.5.0"
         version_kotlin_coroutines = "1.1.0"
         version_moshi = "1.9.3"
-        version_glide = "4.13.0"
+        version_glide = "4.14.1"
         version_timber = "4.7.1"
         epoxyVersion = "4.6.4"
         compose_version = '1.2.1'
@@ -16,6 +16,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2"

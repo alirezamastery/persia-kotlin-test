@@ -29,7 +29,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         Glide.with(imgView.context)
             .load(imgUri)
             .fitCenter()
-            .circleCrop()
+            // .circleCrop()
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)

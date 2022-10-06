@@ -36,12 +36,14 @@ class NavDrawerHeaderViewModel @Inject constructor(
     private fun getUserProfile() {
         viewModelScope.launch {
             val response = apiClient.getUserProfile()
+            Timber.i("profile res: $response")
             if (response.isSuccessful) {
                 val data = response.body
-                _userProfile.value = data
-                _userProfile.value!!.avatar = Constants.SERVER_BASE_URL + data.avatar
-                _fullName.value = "${data.first_name} ${data.last_name}"
-                _username.value = AppPreferences.username
+                data.avatar = Constants.SERVER_BASE_URL + data.avatar
+                _userProfile.postValue(data)
+                _fullName.postValue("${data.first_name} ${data.last_name}")
+                _username.postValue(AppPreferences.username)
+                Timber.i("profile: ${userProfile.value}")
             }
         }
     }

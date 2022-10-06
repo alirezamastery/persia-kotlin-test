@@ -28,11 +28,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+//        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     buildFeatures {
@@ -93,6 +94,7 @@ dependencies {
 
     // Glide for images
     implementation "com.github.bumptech.glide:glide:$version_glide"
+    kapt "com.github.bumptech.glide:compiler:$version_glide"
 
     // Room database
     implementation "androidx.room:room-runtime:$version_room"
@@ -126,4 +128,6 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
+    // Cropper
+    implementation 'com.github.CanHub:Android-Image-Cropper:4.3.2'
 }
