@@ -7,9 +7,9 @@ import com.persia.test.data.network.services.persiaatlas.responses.actual_produc
 import com.persia.test.data.network.services.persiaatlas.responses.product.ProductResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant_selector.VariantSelectorResponse
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
-import retrofit2.http.Query
 
 class PersiaAtlasApiClient(
     private val persiaAtlasService: PersiaAtlasService
@@ -35,6 +35,14 @@ class PersiaAtlasApiClient(
 
     suspend fun getUserProfile(): CustomResponse<UserProfileResponse> {
         return safeApiCall { persiaAtlasService.getUserProfile() }
+    }
+
+    suspend fun updateUserProfileAvatar(part: MultipartBody.Part): CustomResponse<UserProfileResponse> {
+        return safeApiCall { persiaAtlasService.updateProfileAvatar(part) }
+    }
+
+    suspend fun updateUserProfileInfo(data: JSONObject): CustomResponse<UserProfileResponse> {
+        return safeApiCall { persiaAtlasService.updateProfileInfo(data) }
     }
 
     // #################### Accounting ####################

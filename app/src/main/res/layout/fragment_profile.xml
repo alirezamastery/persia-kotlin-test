@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/profileAvatarImageRL"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="H,1:1"
@@ -25,9 +26,11 @@
 
             <ImageView
                 android:id="@+id/profileAvatarImageView"
+                imageUrl="@{profileViewModel.userProfile.avatar}"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginBottom="30dp"
+                android:contentDescription="@string/avatarImage"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -37,16 +40,70 @@
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/avatar_select_btn"
+                android:contentDescription="@string/selectAvatar"
                 android:src="@drawable/ic_baseline_photo_size_select_actual_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
 
         </RelativeLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profileFirstNameETLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileAvatarImageRL">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profileFirstNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/firstname"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{profileViewModel.userProfile.first_name}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/profileLastNameETLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileFirstNameETLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profileLastNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lastname"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{profileViewModel.userProfile.last_name}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/submitProfileInfo"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/submit"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileLastNameETLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>

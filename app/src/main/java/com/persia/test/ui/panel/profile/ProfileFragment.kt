@@ -24,6 +24,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -50,8 +51,8 @@ class ProfileFragment : Fragment() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentProfileBinding
+    private val binding get() = _binding
 
     private var outputUri: Uri? = null
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) {
@@ -62,7 +63,7 @@ class ProfileFragment : Fragment() {
             result.isSuccessful -> {
                 Timber.v("Bitmap: ${result.bitmap.toString()}")
                 Timber.v("File Path: ${context?.let { result.getUriFilePath(it) }.toString()}")
-                handleCropImageResult(result.uriContent.toString())
+                handleCropImageResult(result)
             }
             result is CropImage.CancelledResult -> {
                 showErrorMessage("cropping image was cancelled by the user")
@@ -76,7 +77,7 @@ class ProfileFragment : Fragment() {
         if (it is CropImage.CancelledResult) {
             return@registerForActivityResult
         }
-        handleCropImageResult(it.uriContent.toString())
+        handleCropImageResult(it)
     }
 
     override fun onCreateView(
@@ -84,11 +85,14 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        _binding.lifecycleOwner = viewLifecycleOwner
+        _binding.profileViewModel = profileViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
         setupObservers()
         profileViewModel.refreshUserProfile()
         // binding.goToIncomeListBtn.setOnClickListener {
@@ -103,33 +107,45 @@ class ProfileFragment : Fragment() {
         //     }
         // }
 
+    }
 
+    private fun setupListeners() {
         binding.profileSelectAvatarImage.setOnClickListener {
             startCameraWithoutUri(includeCamera = false, includeGallery = true)
         }
+
+        binding.profileFirstNameET.doOnTextChanged { text, start, before, count ->
+            profileViewModel.onEvent(
+                ProfileEditFormEvent.FirstnameChanged(firstname = text.toString())
+            )
+        }
+
+        binding.profileLastNameET.doOnTextChanged { text, start, before, count ->
+            profileViewModel.onEvent(
+                ProfileEditFormEvent.LastnameChanged(lastname = text.toString())
+            )
+        }
+
+        binding.submitProfileInfo.setOnClickListener {
+            profileViewModel.onEvent(ProfileEditFormEvent.Submit)
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setupObservers(){
-        profileViewModel.userProfile.observe(viewLifecycleOwner){profileResponse->
-            profileResponse.let {
-                val imgUri = it.avatar.toUri().buildUpon().scheme("https").build()
-                Timber.i("avatar observe uri: ${imgUri}")
-                Glide.with(binding.profileAvatarImageView.context)
-                    .load(imgUri)
-                    .fitCenter()
-                    .apply(
-                        RequestOptions()
-                            .placeholder(R.drawable.loading_animation)
-                            .error(R.drawable.ic_broken_image)
-                    )
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.profileAvatarImageView)
+    private fun setupObservers() {
+        profileViewModel.apiError.observe(viewLifecycleOwner) { err ->
+            err?.let {
+                Toast.makeText(activity, "api error: $err", Toast.LENGTH_LONG).show()
             }
+        }
+
+        profileViewModel.userProfile.observe(viewLifecycleOwner) { data ->
+            data?.let {
+                profileViewModel.updateFormState()
+            }
+        }
+
+        profileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.submitProfileInfo.isEnabled = !isLoading
         }
     }
 
@@ -138,7 +154,8 @@ class ProfileFragment : Fragment() {
         Toast.makeText(activity, "Crop failed: $message", Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleCropImageResult(uri: String) {
+    private fun handleCropImageResult(result: CropImageView.CropResult) {
+        val uri = result.uriContent.toString()
         Timber.i("result uir: $uri")
         Glide.with(binding.profileAvatarImageView.context)
             .load(uri)
@@ -151,6 +168,7 @@ class ProfileFragment : Fragment() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.profileAvatarImageView)
         // SampleResultScreen.start(this, null, Uri.parse(uri.replace("file:", "")), null)
+        profileViewModel.uploadAvatarImage(result.getUriFilePath(context!!)!!)
     }
 
     private fun setupOutputUri() {

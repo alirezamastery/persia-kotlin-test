@@ -6,6 +6,7 @@ import com.persia.test.data.network.services.persiaatlas.responses.product.Produ
 import com.persia.test.data.network.services.persiaatlas.responses.variant.VariantResponse
 import com.persia.test.data.network.services.persiaatlas.responses.variant_selector.VariantSelectorResponse
 import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
@@ -22,6 +23,14 @@ interface PersiaAtlasService {
 
     @GET("/api/users/profile/")
     suspend fun getUserProfile(): Response<UserProfileResponse>
+
+    @Multipart
+    @PATCH("/api/users/profile/")
+    suspend fun updateProfileAvatar(@Part part: MultipartBody.Part): Response<UserProfileResponse>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("/api/users/profile/")
+    suspend fun updateProfileInfo(@Body data: JSONObject): Response<UserProfileResponse>
 
     // #################### Accounting API ####################
     // ********** Income **********

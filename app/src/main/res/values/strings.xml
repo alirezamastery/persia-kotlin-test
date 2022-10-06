@@ -39,6 +39,11 @@
     <string name="submit">ثبت</string>
     <string name="about_us">درباره ما</string>
     <string name="profile">پروفایل</string>
+    <string name="avatar">آواتار</string>
+    <string name="avatarImage">عکس آواتار</string>
+    <string name="selectAvatar">انتخاب آواتار</string>
+    <string name="firstname">نام</string>
+    <string name="lastname">نام خانوادگی</string>
     <string name="product_section">محصولات</string>
     <string name="accounting_section">حساب داری</string>
     <string name="dkpc">DKPC</string>

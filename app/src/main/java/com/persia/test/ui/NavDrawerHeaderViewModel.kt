@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.UserProfileResponse
 import com.persia.test.global.AppPreferences
-import com.persia.test.global.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -30,20 +29,19 @@ class NavDrawerHeaderViewModel @Inject constructor(
     val username get() = _username
 
     init {
-        getUserProfile()
+        requestUserProfile()
     }
 
-    private fun getUserProfile() {
+    private fun requestUserProfile() {
         viewModelScope.launch {
             val response = apiClient.getUserProfile()
             Timber.i("profile res: $response")
             if (response.isSuccessful) {
                 val data = response.body
-                data.avatar = Constants.SERVER_BASE_URL + data.avatar
+                Timber.i("profile: $data")
                 _userProfile.postValue(data)
                 _fullName.postValue("${data.first_name} ${data.last_name}")
                 _username.postValue(AppPreferences.username)
-                Timber.i("profile: ${userProfile.value}")
             }
         }
     }
