@@ -33,7 +33,7 @@ class ProfileViewModel @Inject constructor(
     private var _formState = MutableLiveData(ProfileEditFormState())
     val formState get() = _formState
 
-    private val _navigateToIncomeList = MutableLiveData<Boolean>(false)
+    private val _navigateToIncomeList = MutableLiveData(false)
     val navigateToIncomeList get() = _navigateToIncomeList
 
     fun displayIncomes() {
@@ -72,15 +72,12 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun uploadAvatarImage(path: String) {
-        Timber.i("file path: $path")
-        val file = File(path) // get file from uri
+        val file = File(path)
         val photoBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val partPhoto = MultipartBody.Part.createFormData("avatar", file.name, photoBody)
-        Timber.i("part image: $partPhoto")
         viewModelScope.launch {
             val response = apiClient.updateUserProfileAvatar(partPhoto)
             if (response.isSuccessful) {
-                Timber.i("avatar response: ${response.body}")
                 _userProfile.postValue(userProfile.value?.copy(avatar = response.body.avatar))
             } else {
                 Timber.i("error in avatar: ${response.exception}")
@@ -98,7 +95,7 @@ class ProfileViewModel @Inject constructor(
         data["last_name"] = formState.value!!.lastname
         viewModelScope.launch {
             _isLoading.postValue(true)
-            // cast as Map important for empty string
+            // cast as Map important to handle empty strings
             val payloadData = JSONObject(data as Map<String, String>)
             val response = apiClient.updateUserProfileInfo(payloadData)
             if (!response.isSuccessful) {
