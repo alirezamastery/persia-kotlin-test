@@ -18,6 +18,7 @@ class AuthInterceptor() : Interceptor {
         // If token has been saved, add it to the request
         val accessToken = AppPreferences.accessToken
         Timber.i("access token in interceptor: $accessToken")
+        Timber.i("request url in interceptor: ${request.url}")
         accessToken?.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }

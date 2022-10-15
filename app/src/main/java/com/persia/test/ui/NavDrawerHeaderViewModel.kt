@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.UserProfileResponse
+import com.persia.test.data.network.websocket.WebSocketManager
 import com.persia.test.global.AppPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,6 +31,8 @@ class NavDrawerHeaderViewModel @Inject constructor(
 
     init {
         requestUserProfile()
+        Timber.i("WS: ${WebSocketManager.isConnected()}")
+        WebSocketManager.connect()
     }
 
     private fun requestUserProfile() {
