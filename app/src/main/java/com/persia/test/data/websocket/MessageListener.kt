@@ -1,4 +1,4 @@
-package com.persia.test.data.network.websocket
+package com.persia.test.data.websocket
 
 interface MessageListener {
 

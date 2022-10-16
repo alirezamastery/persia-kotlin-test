@@ -3,22 +3,17 @@ package com.persia.test.ui.panel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.persia.test.R
-import com.persia.test.data.network.websocket.MessageListener
-import com.persia.test.data.network.websocket.WebSocketManager
 import com.persia.test.databinding.ActivityPanelBinding
 import com.persia.test.databinding.NavPanelViewHeaderBinding
-import com.persia.test.global.Constants
 import com.persia.test.ui.NavDrawerHeaderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,10 +1,7 @@
 package com.persia.test.modules
 
 import android.app.Application
-import com.persia.test.data.database.PersiaAtlasDao
-import com.persia.test.data.database.PersiaAtlasDatabase
-import com.persia.test.data.database.dao.IncomeRemoteKeysDao
-import com.persia.test.data.network.websocket.WebSocketManager
+import com.persia.test.data.websocket.WebSocketManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
