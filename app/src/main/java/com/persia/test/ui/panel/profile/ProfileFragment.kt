@@ -26,10 +26,13 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -146,6 +149,12 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.submitProfileInfo.isEnabled = !isLoading
+        }
+
+        profileViewModel.robotStore.stateFlow.map {
+            it.robotIsOb
+        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner) {
+            Timber.i("/////===== robot is on: $it")
         }
     }
 

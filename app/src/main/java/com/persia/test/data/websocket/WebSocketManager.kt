@@ -1,5 +1,7 @@
 package com.persia.test.data.websocket
 
+import com.persia.test.data.store.RobotState
+import com.persia.test.data.store.Store
 import com.persia.test.data.websocket.payloads.FetchPayload
 import com.persia.test.data.websocket.payloads.StopRobotPayload
 import com.persia.test.data.websocket.responses.*
@@ -12,21 +14,23 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.concurrent.thread
 
 
-object WebSocketManager {
-
+class WebSocketManager(private val robotStore: Store<RobotState>) {
 
     @Volatile
     private var isConnected = false
 
     private var connectNum = 0
-    private const val MAX_NORMAL_RETRY = 5
-    private const val RECONNECT_INTERVAL = 2000
+    private val MAX_NORMAL_RETRY = 5
+    private val RECONNECT_INTERVAL = 2000
     private lateinit var mWebSocket: WebSocket
 
     // private val ResponseTypeMap = HashMap<String, Class<out WebSocketBaseResponse>>()
@@ -34,6 +38,7 @@ object WebSocketManager {
     private val PayloadTypeMap = HashMap<Int, Class<*>>()
     private val sentCommands: MutableList<String> = mutableListOf()
     private val commandQueue: MutableList<String> = mutableListOf()
+    private val passThroughResponses = listOf(ResponseTypes.TOGGLE_ROBOT)
 
     private var client: OkHttpClient = OkHttpClient.Builder()
         .writeTimeout(5, TimeUnit.SECONDS)
@@ -52,11 +57,12 @@ object WebSocketManager {
         .build()
 
     init {
-        ResponseTypeMap["fetch_response"] = FetchData::class.java
-        ResponseTypeMap["robot_stopped"] = RobotStoppedData::class.java
+        ResponseTypeMap[ResponseTypes.FETCH_RESPONSE] = FetchData::class.java
+        ResponseTypeMap[ResponseTypes.TOGGLE_ROBOT] = ToggleRobotData::class.java
+        ResponseTypeMap[ResponseTypes.ROBOT_RUNNING] = RobotRunningData::class.java
 
-        PayloadTypeMap[WebSocketCommands.FETCH] = FetchPayload::class.java
-        PayloadTypeMap[WebSocketCommands.STOP_ROBOT] = StopRobotPayload::class.java
+        PayloadTypeMap[Commands.FETCH] = FetchPayload::class.java
+        PayloadTypeMap[Commands.STOP_ROBOT] = StopRobotPayload::class.java
     }
 
     fun connect() {
@@ -132,6 +138,58 @@ object WebSocketManager {
         commandQueue.clear()
     }
 
+    fun handleWebSocketResponse(responseType: String, text: String) {
+        when (responseType) {
+            ResponseTypes.FETCH_RESPONSE -> {
+                Timber.i("it is fetch data")
+                val types = Types.newParameterizedType(
+                    WebSocketResponse::class.java,
+                    FetchData::class.java
+                )
+                val adapter = moshi.adapter<WebSocketResponse<FetchData>>(types)
+                val res = adapter.fromJson(text)
+                Timber.i("handled json: $res")
+                res?.let {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        robotStore.update { robotState ->
+                            return@update robotState.copy(
+                                robotIsOb = it.data.robotIsOn,
+                                robotIsRunning = it.data.robotIsRunning
+                            )
+                        }
+                    }
+                }
+            }
+            else -> {
+                Timber.i("it is wrong data")
+            }
+        }
+    }
+
+    private fun tt(f: WebSocketResponse<FetchData>) {
+        Timber.i("ttttttt: $f")
+    }
+
+    // private inline fun <reified T : Any> handleWebSocketResponses(
+    //     text: String
+    // ): WebSocketResponse<T> {
+    //     when (T::class.java) {
+    //         FetchData::class.java -> {
+    //             Timber.i("it is fetch data")
+    //             val types = Types.newParameterizedType(
+    //                 WebSocketResponse::class.java,
+    //                 FetchData::class.java
+    //             )
+    //             val adapter = moshi.adapter<WebSocketResponse<FetchData>>(types)
+    //             val res = adapter.fromJson(text)
+    //             Timber.i("handled json: $res")
+    //         }
+    //         else -> {
+    //             Timber.i("it is wrong data")
+    //         }
+    //     }
+    // }
+
 
     private fun createListener(): WebSocketListener {
         return object : WebSocketListener() {
@@ -148,7 +206,7 @@ object WebSocketManager {
                     Timber.i("WS connect success")
                     handleCommandQueue()
                     sendCommand(
-                        command = WebSocketCommands.FETCH,
+                        command = Commands.FETCH,
                         payload = FetchPayload(msg_id = 7)
                     )
                 } else {
@@ -166,7 +224,8 @@ object WebSocketManager {
                     Timber.e("WS response is null")
                     return
                 }
-                if (response.requestKey !in sentCommands) {
+                val reqKey = response.requestKey
+                if (reqKey !== null && reqKey !in sentCommands) {
                     Timber.i("no command with this key: ${response.requestKey}")
                     return
                 }
@@ -177,6 +236,7 @@ object WebSocketManager {
                 val adapter = moshi.adapter<WebSocketResponse<*>>(types)
                 val res = adapter.fromJson(text)
                 Timber.i("parsed response: $res")
+                handleWebSocketResponse(response.type, text)
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -220,7 +280,7 @@ object WebSocketManager {
 
     data class WebSocketResponseInfo(
         val type: String,
-        @Json(name = "req_key") val requestKey: String
+        @Json(name = "req_key") val requestKey: String?
     )
 
 }

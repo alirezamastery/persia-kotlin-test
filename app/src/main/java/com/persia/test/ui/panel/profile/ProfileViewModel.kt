@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.UserProfileResponse
+import com.persia.test.data.store.RobotState
+import com.persia.test.data.store.Store
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -18,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val apiClient: PersiaAtlasApiClient
+    private val apiClient: PersiaAtlasApiClient,
+    val robotStore: Store<RobotState>
 ) : ViewModel() {
 
     private val _userProfile = MutableLiveData<UserProfileResponse>()

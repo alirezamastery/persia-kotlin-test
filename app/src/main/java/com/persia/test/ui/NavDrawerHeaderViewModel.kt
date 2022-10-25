@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.persia.test.data.network.PersiaAtlasApiClient
 import com.persia.test.data.network.services.persiaatlas.responses.UserProfileResponse
+import com.persia.test.data.store.RobotState
+import com.persia.test.data.store.Store
 import com.persia.test.data.websocket.WebSocketManager
 import com.persia.test.global.AppPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NavDrawerHeaderViewModel @Inject constructor(
-    private val apiClient: PersiaAtlasApiClient
+    private val apiClient: PersiaAtlasApiClient,
+    private val ws: WebSocketManager,
+    private val robotStore: Store<RobotState>
 ) : ViewModel() {
 
     private val _userProfile = MutableLiveData<UserProfileResponse>()
@@ -31,8 +35,8 @@ class NavDrawerHeaderViewModel @Inject constructor(
 
     init {
         requestUserProfile()
-        Timber.i("WS: ${WebSocketManager.isConnected()}")
-        WebSocketManager.connect()
+        Timber.i("WS: ${ws.isConnected()}")
+        ws.connect()
     }
 
     private fun requestUserProfile() {
