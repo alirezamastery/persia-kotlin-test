@@ -8,6 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.persia.test.data.network.services.JSONObjectAdapter
+import com.persia.test.data.network.services.google.NotificationApiClient
+import com.persia.test.data.network.services.google.NotificationService
 import com.persia.test.global.Constants
 import com.persia.test.data.network.services.persiaatlas.PersiaAtlasService
 import dagger.Module
@@ -80,6 +82,8 @@ object NetworkLayer {
             .build()
     }
 
+
+    // Persia Atlas
     @Provides
     @Singleton
     fun providesPersiaAtlasService(retrofit: Retrofit): PersiaAtlasService {
@@ -91,4 +95,18 @@ object NetworkLayer {
     fun providesPersiaAtlasApi(persiaAtlasService: PersiaAtlasService): PersiaAtlasApiClient {
         return PersiaAtlasApiClient(persiaAtlasService)
     }
+
+    // Notification
+    @Provides
+    @Singleton
+    fun providesNotificationService(retrofit: Retrofit): NotificationService {
+        return retrofit.create(NotificationService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesNotificationApi(notificationService: NotificationService): NotificationApiClient {
+        return NotificationApiClient(notificationService)
+    }
+
 }

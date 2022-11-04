@@ -37,13 +37,18 @@ object AppPreferences {
         get() = Key.USERNAME.getString()
         set(value) = Key.USERNAME.setString(value)
 
+    var firebaseToken: String?
+        get() = Key.FIREBASE_TOKEN.getString()
+        set(value) = Key.FIREBASE_TOKEN.setString(value)
+
     private enum class Key {
         // TODO step 3: replace these cases with your stored values keys
         TEST_TOKEN,
         ACCESS_TOKEN,
         REFRESH_TOKEN,
         IS_LOGGED_IN,
-        USERNAME;
+        USERNAME,
+        FIREBASE_TOKEN;
 
         fun getBoolean(): Boolean? =
             if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(

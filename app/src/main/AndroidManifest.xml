@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+    <uses-permission android:name="com.google.android.c2dm.permisssion.RECEIVE" />
 
     <application
         android:name=".PersiaTestApplication"
@@ -20,6 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PersiaTest"
         tools:targetApi="31">
+
+        <service
+            android:name=".data.network.services.google.FirebaseService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
