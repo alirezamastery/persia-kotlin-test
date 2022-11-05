@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_actual_product_detail" />
     <fragment
         android:id="@+id/brandListFragment"
-        android:name="com.persia.test.ui.panel.products.brand.BrandListFragment"
+        android:name="com.persia.test.ui.panel.products.brand.list.BrandListFragment"
         android:label="@string/brands"
         tools:layout="@layout/fragment_brand_list">
         <action
